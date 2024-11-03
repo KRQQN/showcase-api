@@ -1,4 +1,4 @@
-import { Column, CreatedAt, DataType, IsEmail, Model, NotNull, PrimaryKey, Table, UpdatedAt } from "sequelize-typescript";
+import { AllowNull, Column, CreatedAt, DataType, IsEmail, Model, NotNull, PrimaryKey, Table, UpdatedAt } from "sequelize-typescript";
 
 @Table
 export default class User extends Model {
@@ -7,27 +7,27 @@ export default class User extends Model {
   @Column(DataType.INTEGER)
   id!: number;
 
-  @NotNull
-  @Column
+  @AllowNull(false)
+  @Column(DataType.STRING)
   name!: string;
 
-  @NotNull
+  @AllowNull(false)
   @IsEmail
-  @Column
+  @Column(DataType.STRING)
   email!: string;
 
-  @NotNull
-  @Column
+  @AllowNull(false)
+  @Column(DataType.STRING)
   passwordHash!: string;
 
-  @Column
+  @Column(DataType.BOOLEAN)
   isAdmin!: boolean;
 
   @CreatedAt
-  @Column
+  @Column(DataType.DATE)
   createdAt!: Date;
 
   @UpdatedAt
-  @Column
+  @Column(DataType.DATE)
   updatedAt!: Date;
 }
