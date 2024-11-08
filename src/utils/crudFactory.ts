@@ -3,7 +3,7 @@ import { WhereOptions } from 'sequelize';
 
 export function crudFactory(...additionalRouters: Router[]): Router {
   return Router()
-  .use(...additionalRouters)
+  .use(...additionalRouters) // this is quite stupid
   .get('/', async (req: Request, res: Response) => {
       
       const items = await req.repository.findAll();
