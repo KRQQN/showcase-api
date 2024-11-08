@@ -1,9 +1,8 @@
-import { Router, Request, Response, NextFunction, RequestHandler } from 'express';
+import { Router, Request, Response } from 'express';
 import { WhereOptions } from 'sequelize';
 
-export function crudFactory(...additionalRouters: Router[]): Router {
+export function crudFactory(): Router {
   return Router()
-  .use(...additionalRouters) // this is quite stupid
   .get('/', async (req: Request, res: Response) => {
       
       const items = await req.repository.findAll();
