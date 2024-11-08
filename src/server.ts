@@ -1,7 +1,7 @@
 import express from 'express';
-import { apiRoutes } from './routes/apiRoutes';
 import sequelize from './db/sequelize/sequelizeConnection';
 import errorHandler from './middlewares/errorHandler';
+import apiRouter from './routes/apiRoutes';
 
 const app = express();
 
@@ -9,7 +9,7 @@ const app = express();
   await sequelize.authenticate();
 })();
 
-app.use('/api', apiRoutes(sequelize));
+app.use('/api', apiRouter);
 app.use(errorHandler)
 
 export default app;
