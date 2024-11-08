@@ -6,7 +6,6 @@ declare global {
   namespace Express {
     interface Request {
       repository: Repository<any> ;
-      sequelize: Sequelize;
     }
   }
 }
