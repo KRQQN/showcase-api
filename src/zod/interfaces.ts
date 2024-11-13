@@ -2,3 +2,12 @@ export interface ICustomError extends Error {
   statusCode: number;
   redirect: string;
 }
+
+export interface IRepository<T> {
+  getAll()                   : Promise<T[]>;
+  getById(id: number)        : Promise<T | null>;
+  create(item: T)            : Promise<T>;
+  update(id: number, item: T): Promise<T | null>;
+  delete(id: number)         : Promise<boolean>;
+}
+
