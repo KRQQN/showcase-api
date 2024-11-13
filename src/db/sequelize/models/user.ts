@@ -1,17 +1,19 @@
-import { AllowNull, Column, CreatedAt, DataType, IsEmail, Model, NotNull, PrimaryKey, Table, UpdatedAt } from "sequelize-typescript";
+import { AllowNull, Column, CreatedAt, DataType, Default, IsEmail, Model, NotNull, PrimaryKey, Table, Unique, UpdatedAt } from "sequelize-typescript";
 
 @Table
 export default class User extends Model {
   
   @PrimaryKey
-  @Column(DataType.INTEGER)
-  id!: number;
+  @Default(DataType.UUIDV4)
+  @Column(DataType.UUID)
+  id!: string;
 
   @AllowNull(false)
   @Column(DataType.STRING)
   name!: string;
 
   @AllowNull(false)
+  @Unique
   @IsEmail
   @Column(DataType.STRING)
   email!: string;
