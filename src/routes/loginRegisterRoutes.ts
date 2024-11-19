@@ -2,7 +2,7 @@ import { Request, Response, RequestHandler, Router } from 'express';
 import { userCredentialsSchema } from '../zod/schemas';
 import bcrypt from 'bcrypt';
 import {
-  BadRequestException,
+  InternalServerErrorException,
   UnauthorizedException,
   UserInputException
 } from '../utils/customErrors';
@@ -21,7 +21,7 @@ export const loginRegisterRouter = Router()
     const userCredentials = { ...pareseRes.data, passwordHash: hashedPassword };
     const user = await req.repository.create(userCredentials);
 
-    if (!user) throw new BadRequestException('Something went wrong creating user');
+    if (!user) throw new InternalServerErrorException('Something went wrong creating user');
     else return res.status(201).json({ message: 'User created' });
   }) as RequestHandler)
 
