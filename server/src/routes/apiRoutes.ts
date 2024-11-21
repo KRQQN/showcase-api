@@ -6,6 +6,7 @@ import User from '../db/sequelize/models/user';
 
 const apiRouter = Router()
 .use('/users', provideRepository(User), crudFactory())
+.use('/profile', provideRepository(User), crudFactory())
 .use('/auth',  provideRepository(User), loginRegisterRouter)
 
 export default apiRouter;

@@ -16,6 +16,6 @@ sequelize
   .addHook('afterConnect', () => {
     console.log('Connected to database');
   })
-  .sync();
+  .sync({ force: true });
 
 export default sequelize;

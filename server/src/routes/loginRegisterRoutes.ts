@@ -1,11 +1,14 @@
 import { Request, Response, RequestHandler, Router } from 'express';
 import { userCredentialsSchema } from '../zod/schemas';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import {
   InternalServerErrorException,
   UnauthorizedException,
   UserInputException
 } from '../utils/customErrors';
+
+const { JWT_SECRET, NODE_ENV } = process.env;
 
 export const loginRegisterRouter = Router()
   .post('/register', (async (
@@ -22,7 +25,19 @@ export const loginRegisterRouter = Router()
     const user = await req.repository.create(userCredentials);
 
     if (!user) throw new InternalServerErrorException('Something went wrong creating user');
-    else return res.status(201).json({ message: 'User created' });
+
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET!, { expiresIn: '1h' });
+    
+    return res
+      .cookie('auth_token', token, {
+        httpOnly: true,
+        secure: NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 1000
+      })
+      .status(201)
+      .redirect('/welcome');
+    
   }) as RequestHandler)
 
   .post('/login', (async (req: Request, res: Response): Promise<Response | void> => {
@@ -37,5 +52,15 @@ export const loginRegisterRouter = Router()
     const match = await bcrypt.compare(userCredentials.password, user.passwordHash);
 
     if (!user || !match) throw new UnauthorizedException();
-    return res.status(200).json({ message: 'Login successful' });
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET!, { expiresIn: '1h' });
+  
+    return res
+      .cookie('bearer', token, {
+        httpOnly: true,
+        secure: NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 1000
+      })
+      .status(200)
+      .redirect('/')
   }) as RequestHandler);
