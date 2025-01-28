@@ -1,38 +1,183 @@
-.App {
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.App {
+  text-align: center;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.projects, .contact {
+  padding: 50px 20px;
+  background-color: rgb(18, 18, 18);
+}
+
+.project-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.project-card {
+  background: #333;
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: auto;
+}
+
+input, textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  padding: 10px;
+  background: #ff6600;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff5500;
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+
+#tsparticles {
+  height: 100vh; /* Default height */
+  width: 100vw; /* Default width */
+  position: relative; /* Ensure positioning context for the canvas */
+}
+
+/* Default canvas styles */
+div#tsparticles > canvas {
+  position: relative;
+  width: 100vw !important;
+  height: 0;
+  margin: auto !important;
+  z-index: 0;
+}
+
+/* For screens larger than 1200px (e.g., desktops) */
+@media (min-width: 1200px) {
+  #tsparticles {
+    position: relative;
+  }
+
+  div#tsparticles > canvas {
+    left: -20rem;
+    width: 100%;
+    height: 50rem;
+  }
+}
+
+/* For screens between 768px and 1200px (e.g., tablets) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  #tsparticles {
+    position: relative;
+    height: 30rem; /* Adjust height for tablets */
+    width: 95%; /* Adjust width for tablets */
+  }
+
+  div#tsparticles > canvas {
+    width: 100%;
+    height: 100%;
+    left: -12rem;
+  }
+}
+
+/* For screens smaller than 768px (e.g., mobile) */
+@media (max-width: 767px) {
+  #tsparticles {
+    height: 40rem;
+    width: 100%;
+    /* border: 2px solid red; */
+    overflow: visible;
+  }
+
+  div#tsparticles > canvas {
+    top: 1rem;
+    left: 0 !important;
+    /* border: 2px solid red; */
+    width: 70%;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+
+/* .layer {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 50%;
+} */
+
+@media (max-width: 767px) {
+ #name-title {
+  transform:translate(1rem, -8rem);
+ } 
 }
