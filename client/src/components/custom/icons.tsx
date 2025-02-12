@@ -28,7 +28,6 @@ import firebase from '@/assets/icons/Firebase.svg'
 import influxDB from '@/assets/icons/InfluxDB.svg'
 import raspberry from '@/assets/icons/Raspberry Pi.svg'
 import mongoDB from '@/assets/icons/MongoDB.svg'
-import grafana from '@/assets/icons/Grafana.svg'
 
 const icons = [
   figma,
@@ -62,8 +61,8 @@ const icons = [
 const FlyingIcons: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const iconSize = 80; // Size of each icon
-  const padding = 5; // Space above and below the icons
+  const iconSize = 80;
+  const padding = 5;
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -132,8 +131,8 @@ const FlyingIcons: React.FC = () => {
         },
         rotate: {
           duration: Math.random() * 10 + 3, 
-          repeat: Infinity, // Continuous rotation
-          ease: 'linear', // Smooth motion
+          repeat: Infinity,
+          ease: 'linear',
         },
         opacity: { duration: 1 },
       },

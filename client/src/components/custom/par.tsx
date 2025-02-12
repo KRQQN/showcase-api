@@ -4,26 +4,21 @@ import FlyingIcons from "./icons";
 
 const ScrollAnimations: React.FC = () => {
   return (
-    <div style={{ height: "300px", padding: "50px" }}>
+    
       <motion.div
         initial={{ opacity: 0, y: 150 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-150px" }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 1 }}
         style={{
-          height: "200px",
-          background: "lightblue",
-          color: "white",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: "50px",
+          height: "10rem",
+          background: "none",
           overflow: "hidden",
         }}
       >
       <FlyingIcons/>
       </motion.div>
-    </div>
+    
   );
 };
 

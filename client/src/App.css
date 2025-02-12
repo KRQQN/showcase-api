@@ -3,28 +3,8 @@
   height: 100vh;
   margin: 0 auto;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  --ua-blue: #0066cc; 
+  --se-yellow: #FFD700; 
 }
 
 body {
@@ -46,29 +26,6 @@ body {
   background: rgba(0, 0, 0, 0.8);
 }
 
-.projects, .contact {
-  padding: 50px 20px;
-  background-color: rgb(18, 18, 18);
-}
-
-.project-cards {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.project-card {
-  background: #333;
-  padding: 20px;
-  border-radius: 10px;
-  width: 200px;
-  text-align: left;
-  transition: all 0.3s ease;
-}
-
-.project-card:hover {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
 
 form {
   display: flex;
@@ -84,31 +41,16 @@ input, textarea {
   border: none;
 }
 
-button {
-  padding: 10px;
-  background: #ff6600;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+
+
+.gradient-bg {
+  background: linear-gradient(0deg, #FFD700 3%, #0066cc 73%, #00000011 120%);
 }
-
-button:hover {
-  background: #ff5500;
-}
-
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 
 #tsparticles {
-  height: 100vh; /* Default height */
-  width: 100vw; /* Default width */
-  position: relative; /* Ensure positioning context for the canvas */
+  height: 100vh;
+  width: 100vw;
+  position: relative;
 }
 
 /* Default canvas styles */
@@ -137,8 +79,8 @@ div#tsparticles > canvas {
 @media (min-width: 768px) and (max-width: 1199px) {
   #tsparticles {
     position: relative;
-    height: 30rem; /* Adjust height for tablets */
-    width: 95%; /* Adjust width for tablets */
+    height: 30rem; 
+    width: 95%;
   }
 
   div#tsparticles > canvas {
@@ -153,14 +95,12 @@ div#tsparticles > canvas {
   #tsparticles {
     height: 40rem;
     width: 100%;
-    /* border: 2px solid red; */
     overflow: visible;
   }
 
   div#tsparticles > canvas {
     top: 1rem;
     left: 0 !important;
-    /* border: 2px solid red; */
     width: 70%;
     height: 100%;
     overflow: visible;
@@ -168,13 +108,6 @@ div#tsparticles > canvas {
 }
 
 
-/* .layer {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 50%;
-} */
 
 @media (max-width: 767px) {
  #name-title {
