@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import User from './models/user';
+import WordleHighscore from './models/wordleHighscore';
 
 const { PG_DB, PG_USERNAME, PG_PASSWORD } = process.env;
 
@@ -9,7 +10,10 @@ const sequelize = new Sequelize({
   username: PG_USERNAME!,
   password: PG_PASSWORD!,
   repositoryMode: true,
-  models: [User]
+  models: [
+    User,
+    WordleHighscore
+  ]
 });
 
 sequelize
