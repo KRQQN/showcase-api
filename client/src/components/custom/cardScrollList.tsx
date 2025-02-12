@@ -1,6 +1,7 @@
 import './scrollList.scss';
 import { Link } from '@chakra-ui/react';
-const Card = () => {
+
+const CardScrollList = () => {
   return (
 
       <div className="container">
@@ -14,4 +15,5 @@ const Card = () => {
   );
 };
 
-export default Card;
+
+export default CardScrollList;
