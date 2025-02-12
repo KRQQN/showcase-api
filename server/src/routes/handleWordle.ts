@@ -46,7 +46,6 @@ wordleRouter
     const result = validateGuess(gameSession.word, req.body.guess);
     gameSession.guessCount++;
     
-    console.log(JSON.stringify({feedback: result, guessCount: gameSession.guessCount}));
 
     res.json({feedback: result, guessCount: gameSession.guessCount});
     /* gameSession?.word === req.body.guess
@@ -58,11 +57,11 @@ wordleRouter
     const gameSession = {
       id: randomUUID(),
       guessCount: 0,
-      word: 'wordle',
+      word: 'WORDLE',
       timestamp: new Date().getTime()
     };
     gameSessions.push(gameSession);
-    res.json({ id: gameSession.id, wordLength: gameSession.word.length });
+    res.json({ id: gameSession.id });
   });
 
 

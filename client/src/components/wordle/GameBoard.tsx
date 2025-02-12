@@ -4,8 +4,8 @@ import { LetterFeedback } from './types/wordleTypes';
 import WordleRow from './WordleRow';
 
 
-const GameBoard = () => {
-  const [gameId, setGameId] = useState('1234');
+const GameBoard = ({gameId}: {gameId:string}) => {
+  
 
   const [guesses, setGuesses] = useState(Array(6).fill(''));
   const [currentGuess, setCurrentGuess] = useState('');
