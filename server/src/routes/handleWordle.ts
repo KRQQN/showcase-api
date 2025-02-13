@@ -1,15 +1,19 @@
 import { randomUUID, UUID } from 'crypto';
 import { Router, Request, Response } from 'express';
 import { WhereOptions } from 'sequelize';
+import wordlist from '../utils/wordlist';
+import { time } from 'console';
+import { getElapsedTime } from '../utils/getElapsedTime';
 
 export const wordleRouter = Router();
 //const gameSessions: { id: UUID; word: string; timestamp: number }[] = [];
-const gameSessions = [{ id: '1234', word: 'WORDLE', guessCount: 0, timestamp: 1234567890 }];
+const gameSessions: TGameSession[] = [];
 
-
-type GuessFeedback = {
-  letter: string;
-  status: 'correct' | 'misplaced' | 'incorrect';
+type TGameSession = {
+  id: UUID;
+  word: string;
+  guessCount: number;
+  timestamp: number;
 };
 
 wordleRouter
@@ -40,42 +44,47 @@ wordleRouter
   })
 
   .post('/guess/:id', async (req: Request, res: Response) => {
-    const gameSession = gameSessions.find((gameSession) => gameSession.id === req.params.id);
+    const gameSession = gameSessions.find(
+      (gameSession) => gameSession.id === req.params.id
+    );
     if (!gameSession) throw new Error('Game session not found');
 
     const result = validateGuess(gameSession.word, req.body.guess);
     gameSession.guessCount++;
-    
+    console.log(gameSession);
 
-    res.json({feedback: result, guessCount: gameSession.guessCount});
-    /* gameSession?.word === req.body.guess
-      ? res.status(200).json({ guessCount: gameSession.guessCount, feedback: result, correct: true })
-      : res.status(400).json({ guessCount: gameSession.guessCount, feedback: result, correct: false }); */
+    const responsBody = {
+      guessCount: gameSession.guessCount,
+      feedback: result
+    };
+    
+    const gameWon = result.every((letter) => letter.status === 'correct');
+    if (gameWon) {
+      Object.assign(responsBody, {
+        win: true,
+        time: getElapsedTime(gameSession.timestamp)
+      });
+    }
+
+    res.status(200).json(responsBody);
   })
 
   .post('/start-game', async (req: Request, res: Response) => {
+    const sixLetterWords = wordlist.filter((word) => word.length === 6);
+    const word = sixLetterWords[Math.floor(Math.random() * sixLetterWords.length)];
+
     const gameSession = {
       id: randomUUID(),
       guessCount: 0,
-      word: 'WORDLE',
+      word: word.toUpperCase(),
       timestamp: new Date().getTime()
     };
+    console.log();
     gameSessions.push(gameSession);
     res.json({ id: gameSession.id });
   });
 
-
-
-
-
-
-
-
-
-
-  
-const validateGuess = (word:string, guess: string) => {
-
+const validateGuess = (word: string, guess: string) => {
   const guessArr = guess.split('');
   const wordArr = word.split('');
   const feedback = guessArr.map((letter) => ({ letter, status: 'incorrect' }));
@@ -84,7 +93,7 @@ const validateGuess = (word:string, guess: string) => {
     acc[char] = (acc[char] || 0) + 1;
     return acc;
   }, {});
-  
+
   guessArr.forEach((letter, i) => {
     if (letter === wordArr[i]) {
       letterCount[letter]--;
@@ -101,4 +110,3 @@ const validateGuess = (word:string, guess: string) => {
 
   return feedback;
 };
-

@@ -1,15 +1,15 @@
-import { Button, Input, Text } from '@chakra-ui/react';
+import { Box, Button, Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { LetterFeedback } from './types/wordleTypes';
 import WordleRow from './WordleRow';
+import WinnerModal from '../ui/winnerModal';
 
-
-const GameBoard = ({gameId}: {gameId:string}) => {
-  
-
+const GameBoard = ({ gameId }: { gameId: string }) => {
   const [guesses, setGuesses] = useState(Array(6).fill(''));
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesscount, setGuessCount] = useState(0);
+  const [win, setWin] = useState(false);
+  const [time, setTime] = useState({ minutes: 0, seconds: 0 });
 
   const [feedback, setFeedback] = useState<LetterFeedback[][]>([]);
   const [wordLength, setWordLength] = useState(6);
@@ -27,6 +27,11 @@ const GameBoard = ({gameId}: {gameId:string}) => {
 
     const result = await guessRes.json();
     setGuessCount(result.guessCount);
+    
+    if (result.win) {
+      setWin(true);
+      setTime(result.time);
+    }
 
     const newGuesses = [...guesses];
     newGuesses[guesscount] = currentGuess;
@@ -51,8 +56,16 @@ const GameBoard = ({gameId}: {gameId:string}) => {
   };
 
   return (
-    <>
-      <Text fontSize={'7xl'}>WORDLE</Text>
+    <Box w={'100vw'}>
+      <Text fontSize={'4xl'}>W O R D L E</Text>
+      {win && (
+        <WinnerModal isOpen={win} time={time} onClose={() => setWin(false)}>
+          <WordleRow
+            word={guesses[guesscount - 1]}
+            feedback={feedback[guesscount - 1]}
+          />
+        </WinnerModal>
+      )}
 
       {guesses.map((guess, index) => (
         <WordleRow word={guess} feedback={feedback[index]} />
@@ -60,7 +73,7 @@ const GameBoard = ({gameId}: {gameId:string}) => {
 
       <Input
         h={'4rem'}
-        w={'20rem'}
+        w={'10rem'}
         bg={'gray.400/20'}
         type="text"
         value={currentGuess}
@@ -69,9 +82,8 @@ const GameBoard = ({gameId}: {gameId:string}) => {
       <Button bg={'gray.500'} onClick={async (e) => handleSubmit(e)}>
         SUBMIT
       </Button>
-    </>
+    </Box>
   );
 };
-
 
 export default GameBoard;
