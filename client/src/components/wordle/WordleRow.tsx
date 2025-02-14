@@ -19,17 +19,17 @@ const WordleRow: React.FC<WordleRowProps> = ({ word, feedback }) => {
             }
             alignContent={'center'}
             borderRadius={10}
-            m={2}
             key={i}
-            h={70}
-            w={70}
+            m={{base: 2, mdDown: 1}}
+            h={{base: 70, mdDown: 45}}
+            w={{base: 70, mdDown: 45}}
           >
             <Text
-              textShadow="0px 0px 3px whiteSmoke"
+              textShadow="0px 0px 1px whiteSmoke"
               color={'black'}
               textAlign={'center'}
               fontWeight={'bolder'}
-              fontSize={40}
+              fontSize={{base: '4xl', mdDown: '2xl'}}
             >
               {letter}
             </Text>

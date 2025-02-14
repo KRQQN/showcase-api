@@ -1,4 +1,4 @@
-import { Box, Button, Input, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { LetterFeedback } from './types/wordleTypes';
 import WordleRow from './WordleRow';
@@ -56,7 +56,7 @@ const GameBoard = ({ gameId }: { gameId: string }) => {
   };
 
   return (
-    <Box w={'100vw'}>
+    <Box h={5} w={'100vw'}>
       <Text fontSize={'4xl'}>W O R D L E</Text>
       {win && (
         <WinnerModal isOpen={win} time={time} onClose={() => setWin(false)}>
@@ -67,22 +67,28 @@ const GameBoard = ({ gameId }: { gameId: string }) => {
         </WinnerModal>
       )}
 
-      {guesses.map((guess, index) => (
-        <WordleRow word={guess} feedback={feedback[index]} />
-      ))}
+        {guesses.map((guess, index) => (
+          <WordleRow word={guess} feedback={feedback[index]} />
+        ))}
 
-      <Input
-        h={'4rem'}
-        w={'10rem'}
-        bg={'gray.400/20'}
-        type="text"
-        value={currentGuess}
-        onChange={handleInput}
-      />
-      <Button bg={'gray.500'} onClick={async (e) => handleSubmit(e)}>
-        SUBMIT
-      </Button>
-    </Box>
+      <Flex justify={'center'} align={'center'} direction={'column'}>
+        <Text>Guesses remaining: {6 - guesscount}</Text>
+        <Input
+          h={{mdDown: '3rem'}}
+          m={2}
+          w={{base: '30%',mdDown: '50vw'}}
+          bg={'gray.400/20'}
+          type="text"
+          value={currentGuess}
+          onChange={handleInput}
+        />
+        <Button bg={'gray.500'} onClick={async (e) => handleSubmit(e)}>
+          SUBMIT
+        </Button>
+      </Flex>
+
+
+      </Box>
   );
 };
 

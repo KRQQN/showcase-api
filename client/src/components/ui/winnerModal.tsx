@@ -14,7 +14,7 @@ const WinnerModal = ({ isOpen, onClose, time, children }: WinnerModalProps) => {
 
   return (
     <StyledWrapper>
-      <form className="form">
+      <form className="form" style={{zIndex:999}}>
         <span className="close" onClick={onClose}>
           X
         </span>

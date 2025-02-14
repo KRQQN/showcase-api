@@ -19,8 +19,8 @@ const Wordle = () => {
   return (
     gameId
     ? <GameBoard gameId={gameId}/>
-    : <button onClick={handleNewGame}>Start Game</button>
-  )
+    : <button style={{height: '10rem', width:'80%', background: 'linear-gradient(0deg, #ff0000 0%, #ff7300 50%, #fffb00 100%)', marginTop: '100px'}} onClick={handleNewGame}>Start Game</button>
+    )
 }
 
 export default Wordle;
