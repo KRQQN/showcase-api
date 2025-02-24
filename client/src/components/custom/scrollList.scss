@@ -22,12 +22,12 @@
 
     &::before {
         left: 0;
-        background: linear-gradient(to right, rgba(16, 16, 16, 1) 0%, rgba(16, 16, 16, 0) 100%);
+        background: linear-gradient(to right, rgb(21, 7, 218) 0%, rgba(16, 16, 16, 0) 100%);
     }
 
     &::after {
         right: 0;
-        background: linear-gradient(to left, rgba(16, 16, 16, 1) 0%, rgba(16, 16, 16, 0) 100%);
+        background: linear-gradient(to left, rgb(21, 7, 218) 0%, rgba(16, 16, 16, 0) 100%);
     }
 }
 
@@ -37,7 +37,7 @@
     flex: 0 0 75%;
     margin-right: 10px;
     margin-left:  10px;
-    background: rgba(36, 36, 36, 0.5);
+    background: rgba(10,10,10,0.7);
     display: flex;
     justify-content: center;
     align-items: center;
