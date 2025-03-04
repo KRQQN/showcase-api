@@ -23,7 +23,7 @@ const TrNameLanguage = () => {
           position={{ base: 'absolute', md: 'static', lg: 'absolute' }}
           top={{ lg: '56%', md: '30%' }}
           left={{ lg: '75%', md: '50%' }}
-          transform={{ md: 'translate(20vw, -25vh)', lg: 'translate(-35vw, -10vh)' }}
+          transform={{ md: 'translate(12rem, -11rem)', lg: 'translate(-20rem -10rem)' }}
         >
       <SwipeText word={visible ? 'Robin Kron' : ''} duration={0.8} />
       <SlidingText

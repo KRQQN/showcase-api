@@ -10,9 +10,8 @@ const ColorFramedBox = ({children}: {children:ReactNode}) => {
           <b />
           <div className="platforms">
             <p className="title">
-              Some Fomous
               <br />
-              <span>Creative Designer</span>
+              <span>lets connect</span>
             </p>
             <ul className="sci">
               <li>

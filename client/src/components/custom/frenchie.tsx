@@ -82,7 +82,7 @@ const FrenchBulldog = () => {
       draw: {
         enable: true,
         stroke: {
-          color: '#000000',
+          color: '#f0f0f0',
           width: 3,
           opacity: 0.25
         }

@@ -1,18 +1,9 @@
 .bg_grad {
-    background: linear-gradient(135deg, #0066cc 30%, #FFD700 100%);
-    background-size: 400% 400%;
-    animation: gradient 15s ease 2 forwards;
-    overflow: hidden;
+    background: linear-gradient(315deg, #404040,#202020);
+    background-size: 200% 200%;
+    animation: gradient 2s ease 1 forwards;
   }
-  
   @keyframes gradient {
-    0% {
-        background-position: 10% 100%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 10% 100%;
-    }
+    0% { background-position: 50% 0%; }
+    100% { background-position: 50% 100%; }
   }
