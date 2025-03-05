@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './terminal.scss';
 import { Flex } from '@chakra-ui/react';
 
-const Terminal = () => {
+const Terminal = ({showTerminal}: {showTerminal: () => void}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState<string>('');
   const [history, setHistory] = useState<string[]>([]);
@@ -28,6 +28,10 @@ const Terminal = () => {
 
       if (input.trim() === '1') {
         window.open('http://localhost:3001/wordle');
+        setInput('');
+      }
+      if (input.trim() === '4') {
+        showTerminal();
         setInput('');
       }
 
@@ -111,7 +115,7 @@ const Menu = () => {
         <p>[1] wordle</p>
         <p>[2] other </p>
         <p>[3] other</p>
-        <p>[4] other</p>
+        <p>[4] Mommy i want GUI</p>
       </Flex>
       <div className='separator'></div>
     </>
