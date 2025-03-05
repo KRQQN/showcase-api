@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
-import { Container, ISourceOptions, Opacity } from '@tsparticles/engine';
+import { Container, ISourceOptions } from '@tsparticles/engine';
 import { loadFull } from 'tsparticles';
 import { loadPolygonMaskPlugin } from '@tsparticles/plugin-polygon-mask';
 import '@/App.css';
@@ -10,12 +10,10 @@ const FrenchBulldog = () => {
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-      
-     await loadFull(engine)
+      await loadFull(engine);
       await loadPolygonMaskPlugin(engine);
     }).then(() => {
       setInit(true);
-      
     });
   }, []);
 
@@ -26,9 +24,9 @@ const FrenchBulldog = () => {
   };
   const options: ISourceOptions = {
     fps_limit: 30,
-    fullScreen: { 
-      enable: false,
-     },
+    fullScreen: {
+      enable: false
+    },
     particles: {
       collisions: {
         enable: false
@@ -67,7 +65,6 @@ const FrenchBulldog = () => {
       }
     },
 
-    
     polygon: {
       enable: true,
       scale: 0.7,
@@ -102,25 +99,16 @@ const FrenchBulldog = () => {
           distance: 40
         }
       }
-      
-    },
-    
+    }
   };
 
   if (init) {
     return (
-
-        <Particles
-        
-          id="tsparticles"
-          options={options}
-          particlesLoaded={particlesLoaded}
-          style={{
-            border:'2px'
-          }}
-            
-        />
-
+      <Particles
+        id="tsparticles"
+        options={options}
+        particlesLoaded={particlesLoaded}
+      />
     );
   }
 
