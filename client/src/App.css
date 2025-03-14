@@ -47,63 +47,30 @@ input, textarea {
 }
 
 
-
 /* Default canvas styles */
 div#tsparticles > canvas {
   position: relative;
-  width: 100vw !important;
-  height: 0;
-  margin: auto !important;
+  width: 22rem;
+  height: 22rem;
+
   z-index: 0;
 }
 
-/* For screens larger than 1200px (e.g., desktops) */
-@media (min-width: 1200px) {
-
-
-  div#tsparticles > canvas {
-    left: -20rem;
-    width: 100%;
-    height: 50rem;
-  }
-}
-
-/* For screens between 768px and 1200px (e.g., tablets) */
-@media (min-width: 768px) and (max-width: 1199px) {
-  #tsparticles {
-    position: relative;
-    height: 30rem; 
-    width: 95%;
-  }
-
-  div#tsparticles > canvas {
-    width: 100%;
-    height: 100%;
-    left: -12rem;
-  }
-}
 
 /* For screens smaller than 768px (e.g., mobile) */
 @media (max-width: 767px) {
   #tsparticles {
-    height: 40rem;
-    width: 100%;
+    height: 22rem;
+    width: 22rem;
     overflow: visible;
+    margin: auto;
+    display:flex;
+    flex-direction: column;
+    transform: translateX(0.5rem);
+    margin-bottom: 1rem;;
+
   }
 
-  div#tsparticles > canvas {
-    top: 1rem;
-    left: 0 !important;
-    width: 70%;
-    height: 100%;
-    overflow: visible;
-  }
+
 }
 
-
-
-@media (max-width: 767px) {
- #name-title {
-  transform:translate(1rem, -8rem);
- } 
-}

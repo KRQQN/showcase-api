@@ -3,7 +3,7 @@ import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { Container, ISourceOptions } from '@tsparticles/engine';
 import { loadFull } from 'tsparticles';
 import { loadPolygonMaskPlugin } from '@tsparticles/plugin-polygon-mask';
-import '@/App.css';
+
 
 const FrenchBulldog = () => {
   const [init, setInit] = useState(false);
@@ -104,11 +104,13 @@ const FrenchBulldog = () => {
 
   if (init) {
     return (
-      <Particles
-        id="tsparticles"
-        options={options}
-        particlesLoaded={particlesLoaded}
-      />
+      <>
+        <Particles
+          id="tsparticles"
+          options={options}
+          particlesLoaded={particlesLoaded}
+        />
+      </>
     );
   }
 

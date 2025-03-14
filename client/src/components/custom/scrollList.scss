@@ -13,6 +13,9 @@
     height: 254px;
     position: relative;
 
+    
+    
+
     -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 100%);
     mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 100%);
 
@@ -48,5 +51,36 @@
     font-weight: 400;
     font-family: sans-serif;
     border-radius: 0.2rem;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
   }
   
+  .btn-dir {
+      position: absolute;
+      top: 45%;
+      border: none;
+      color: whitesmoke;
+      background: none;
+      transition: background 0.3s;
+      cursor: pointer;
+      font-size: 2rem;
+      padding: 0.5rem;
+      z-index: 404;
+      
+    &:hover {
+        font-size: 2.5rem;
+    }
+
+    &.left {
+        left: 0;
+    }
+
+    &.right {
+        right: 0;
+    }
+
+    
+}

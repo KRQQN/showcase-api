@@ -1,56 +1,72 @@
-
 $primary-bg: #0a0a0a;
 $accent1: #ff0080;
 $accent2: #00eaff;
-$accent3: #ffcc00; 
+$accent3: #ffcc00;
 $animation-speed: 10s;
 
 .bg {
+  background: linear-gradient(270deg, rgb(0, 102, 204), rgb(255, 215, 0));
+  background-size: 600% 600%;
+  animation: GradientMove 6s ease infinite;
+  opacity: 0.7;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.6),
+    rgba(0, 102, 204, 0.4)
+  );
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(0, 102, 204, 0.8);
 
-    background: linear-gradient(270deg, rgb(0, 102, 204), rgb(255, 215, 0));
-background-size: 600% 600%;
-animation: GradientMove 6s ease infinite;
-opacity: 0.7;
-background: radial-gradient(circle, rgba(255, 215, 0, 0.6), rgba(0, 102, 204, 0.4));
-box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(0, 102, 204, 0.8);
+  @keyframes GradientMove {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 
-
-@keyframes GradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-  
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 120%;
     height: 120%;
     top: -10%;
     left: -10%;
-    background: radial-gradient(  rgba(3, 2, 82, 0.3) 10%, transparent 70%);
-    
+    background: radial-gradient(rgba(3, 2, 82, 0.3) 10%, transparent 70%);
+
     filter: blur(80px);
     opacity: 0.1;
     animation: colorPulse $animation-speed infinite alternate ease-in-out;
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(-45deg, rgba($accent1, 0.2), rgba($accent2, 0.2), rgba($accent3, 0.2));
+    background: linear-gradient(
+      -45deg,
+      rgba($accent1, 0.2),
+      rgba($accent2, 0.2),
+      rgba($accent3, 0.2)
+    );
     background-size: 300% 300%;
     animation: gradientMove $animation-speed infinite ease-in-out;
     opacity: 0.3;
   }
 }
 
-
 // Soft pulsing effect for depth
 @keyframes colorPulse {
-  0% { opacity: 0.5; filter: blur(60px); }
-  100% { opacity: 0.8; filter: blur(90px); }
+  0% {
+    opacity: 0.5;
+    filter: blur(60px);
+  }
+  100% {
+    opacity: 0.8;
+    filter: blur(90px);
+  }
 }
