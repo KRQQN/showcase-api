@@ -17,7 +17,8 @@ const TrNameLanguage = () => {
   return (
     <Box
           textAlign={'left'}
-          width={{  mdDown: '25rem', smDown: '20rem' }}
+          ml={{mdDown:'10rem'}}
+          width={{  lgDown: '25rem' }}
           textWrap={'nowrap'}
           alignSelf={{base:'end', mdDown:'center'}}
           transform={'translateY(-2rem)'}
@@ -38,7 +39,7 @@ const TrNameLanguage = () => {
             <Typewriter
             
               words={wordPairs.map((e) => e.text)}
-              loop={3}
+              loop={2}
               cursor
               cursorStyle="|"
               typeSpeed={25}

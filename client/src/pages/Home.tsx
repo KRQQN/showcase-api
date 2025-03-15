@@ -14,26 +14,26 @@ const Home = () => {
     <BackgroundLayout>
     <Box className="">
       <Flex
-        minW={'10rem'}
+        minW={'25rem'}
         h={'40rem'}
+        my={{base:'15rem', mdDown:'10rem'}}
         
-        position={'relative'}
+
         alignItems={'center'}
         justifyContent={'center'}
       >
-        <Flex id='name' w={{base: '80rem', mdDown:'30rem'}} flexDir={{mdDown:'column'}} justifyContent={'center'} alignItems={'center'}>
+        <Flex id='name'  flexDir={{mdDown:'column'}}  justifyContent={'center'} alignItems={'center'} >
           <FrenchBulldog />
           <TrNameLanguage />
         </Flex>
       </Flex>
-
-      <Box w={'100%'} h={'20rem'} m={'auto'}>
+      <Box w={'100%'} h={'20rem'} mx={'auto'} >
         <motion.div
           initial={{ y: 0, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           exit={{ y: 50, opacity: 0 }}
           transition={{ duration: 1, ease: 'easeOut' }}
-          viewport={{ once: true, amount: 0.9 }}
+          viewport={{ once: true, amount: 'all' }}
         >
           <Showcase />
         </motion.div>

@@ -31,7 +31,7 @@ export const SlidingText = ({
   
   export const SwipeText = ({ word, duration = 2 }: { word: string; duration: number }) => {
     return (
-      <div style={{ height: '50px', overflow: 'hidden' }}>
+      <div style={{ minWidth: '20rem', height: '50px', overflow: 'hidden' }}>
         <AnimatePresence>
           <motion.div
             key={word}

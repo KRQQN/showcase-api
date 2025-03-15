@@ -72,9 +72,19 @@ const CardScrollList: React.FC = () => {
       </Button>
       <div className="container" ref={containerRef}>
         <div className="item">
-          <Link href="/wordle">WORDLE</Link>
+          <div className="item-image">
+            <img src="/path-to-wordle-image.jpg" alt="Wordle" />
+          </div>
+          <div className="item-title">
+            <Link href="/wordle">WORDLE</Link>
+          </div>
         </div>
-        <div className="item">Content</div>
+        <div className="item">
+          <div className="item-image">
+            <img src="/path-to-image.jpg" alt="Content" />
+          </div>
+          <div className="item-title">Content</div>
+        </div>
         <div className="item">Content</div>
         <div className="item">Content</div>
         <div className="item">Content</div>
