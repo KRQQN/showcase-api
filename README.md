@@ -1,14 +1,10 @@
-# Random project to display current knowledge in node.js
-## Just freestyling, not sure what this will end up as.
-
-* Under construction... *
+# Portfolio in progress [#########.......]
 
 
-## Todo:
+## Fullstack application with React & Express.js written in TypeScript
+Somewhat fancy portfolio site under construction.
 
-- [X] Centralized error handling
-- [ ] Auth
-- [ ] User profile
-- [ ] File upload
-- [ ] Stuff
-- [ ] Other Stuff
+## Purpouse of this application is: 
+- Refreshing my knowledge in React.
+- Experiment with diffrent libraries.
+- Have something to show that reflects my knowledge in my career so far.

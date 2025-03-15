@@ -6,10 +6,13 @@ import { motion } from 'framer-motion';
 import './home.scss';
 import Terminal from '@/components/custom/terminal';
 import { useState } from 'react';
+import BackgroundLayout from '@/components/layout/bg';
+import GradientText from '@/components/custom/gradientText';
 
 const Home = () => {
   return (
-    <Box className="bg_grad">
+    <BackgroundLayout>
+    <Box className="">
       <Flex
         minW={'10rem'}
         h={'40rem'}
@@ -40,6 +43,7 @@ const Home = () => {
         <Box h={'100%'} justifyContent={'center'} alignContent={'center'}></Box>
       </Stack>
     </Box>
+    </BackgroundLayout>
   );
 };
 
@@ -47,9 +51,10 @@ const Showcase = () => {
   const [showTerminal, setShowTerminal] = useState<boolean>(true);
   return (
     <>
-      <Text fontSize={50} mt={0} letterSpacing={'10px'}>
+      {/* <Text fontSize={20} mb={5} style={} letterSpacing={'10px'}>
         SHOWCASE
-      </Text>
+      </Text> */}
+      <GradientText>SHOWCASE</GradientText>
       {showTerminal ? (
         <Terminal showTerminal={() => setShowTerminal(!showTerminal)} />
       ) : (

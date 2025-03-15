@@ -1,9 +1,108 @@
 .bg_grad {
-    background: linear-gradient(315deg, #404040,#202020);
-    background-size: 200% 200%;
-    animation: gradient 2s ease 1 forwards;
+  background: linear-gradient(315deg, #404040, #202020);
+  background-size: 200% 200%;
+  animation: gradient 2s ease 1 forwards;
+}
+@keyframes gradient {
+  0% {
+    background-position: 50% 0%;
   }
-  @keyframes gradient {
-    0% { background-position: 50% 0%; }
-    100% { background-position: 50% 100%; }
+  100% {
+    background-position: 50% 100%;
   }
+}
+
+.background-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  overflow: hidden;
+
+  .background-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom right, #0f172a, #1e1b4b, #0f172a);
+    z-index: 0;
+  }
+
+  .glow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .glow-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+  }
+
+  .glow-blue {
+    top: 10%;
+    left: 15%;
+    width: 40%;
+    height: 30%;
+    background: #2563eb;
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  .glow-purple {
+    bottom: 10%;
+    right: 15%;
+    width: 40%;
+    height: 30%;
+    background: #9333ea;
+    animation: pulse 6s ease-in-out infinite 2s;
+  }
+
+  .glow-cyan {
+    top: 40%;
+    right: 25%;
+    width: 25%;
+    height: 25%;
+    background: #06b6d4;
+    animation: pulse 6s ease-in-out infinite 4s;
+  }
+
+  .dot-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.075) 1px,
+      transparent 1px
+    );
+    background-size: 20px 20px;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+}
