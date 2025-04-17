@@ -1,26 +1,44 @@
+import BackgroundLayout from "@/components/layout/bg";
 import GameBoard from "@/components/wordle/GameBoard"
-import { useState } from "react";
-
+import GameOptions from "@/components/wordle/GameOptions";
+import { useWordleGame } from "@/hooks/useWordleGame";
+import { useWordLength } from "@/hooks/useWordLength";
+import { useKeyboardInput } from "@/hooks/useKeyboardInput";
+import { useEffect } from "react";
+import WinnerModal from "@/components/ui/winnerModal";
 
 const Wordle = () => {
-  const [gameId, setGameId] = useState('');
-  
-  const handleNewGame = async () => {
-    const res = await fetch('/api/wordle/start-game', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const newGame = await res.json();
-    console.log(res);
-    setGameId(newGame.id);
-  }
-  return (
-    gameId
-    ? <GameBoard gameId={gameId}/>
-    : <button style={{height: '10rem', width:'80%', background: 'linear-gradient(0deg, #ff0000 0%, #ff7300 50%, #fffb00 100%)', marginTop: '100px'}} onClick={handleNewGame}>Start Game</button>
-    )
+  const { wordLength, changeWordLength } = useWordLength(6);
+  const { gameStarted, startGame, submitGuess, ...gameState } = useWordleGame(wordLength);
+  const { currentGuess } = useKeyboardInput(wordLength, submitGuess);
+
+  useEffect(() => {
+
+  }, [gameStarted, gameState.win]);
+
+  return ( 
+    <BackgroundLayout>
+      {!gameStarted ? (
+        <GameOptions 
+          wordLength={wordLength}
+          changeWordLength={changeWordLength}
+          startGame={startGame}
+        />
+      ) : (
+        <>
+          <GameBoard 
+            gameStarted={gameStarted}
+            wordLength={wordLength}
+            currentGuess={currentGuess}
+            submitGuess={submitGuess}
+            {...gameState}
+          />
+
+          <WinnerModal isOpen={gameState.win} correctWord={gameState.guesses[gameState.guessCount - 1]} onClose={gameState.resetWin}/>
+        </>
+      )}
+    </BackgroundLayout>
+  )  
 }
 
 export default Wordle;
