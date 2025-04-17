@@ -2,13 +2,21 @@ import { Sequelize } from 'sequelize-typescript';
 import User from './models/user';
 import WordleHighscore from './models/wordleHighscore';
 
-const { PG_DB, PG_USERNAME, PG_PASSWORD } = process.env;
+const {
+  DB_HOST = 'localhost',
+  DB_PORT = '5432',
+  DB_NAME = 'showcase',
+  DB_USER = 'postgres',
+  DB_PASSWORD = 'postgres'
+} = process.env;
 
 const sequelize = new Sequelize({
-  database: PG_DB!,
+  database: DB_NAME,
   dialect: 'postgres',
-  username: PG_USERNAME!,
-  password: PG_PASSWORD!,
+  username: DB_USER,
+  password: DB_PASSWORD,
+  host: DB_HOST,
+  port: parseInt(DB_PORT),
   repositoryMode: true,
   models: [
     User,

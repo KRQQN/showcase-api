@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import './terminal.scss';
 import { Flex } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const Terminal = ({showTerminal}: {showTerminal: () => void}) => {
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState<string>('');
   const [history, setHistory] = useState<string[]>([]);
@@ -27,15 +29,13 @@ const Terminal = ({showTerminal}: {showTerminal: () => void}) => {
       }
 
       if (input.trim() === '1') {
-        window.open('http://localhost:3001/wordle');
+        navigate('/wordle');
         setInput('');
       }
       if (input.trim() === '4') {
         showTerminal();
         setInput('');
       }
-
-
 
       setHistory([...history, input]);
       setInput('');
@@ -115,7 +115,7 @@ const Menu = () => {
         <p>[1] wordle</p>
         <p>[2] other </p>
         <p>[3] other</p>
-        <p>[4] Mommy i want GUI</p>
+        <p>[4] use GUI</p>
       </Flex>
       <div className='separator'></div>
     </>

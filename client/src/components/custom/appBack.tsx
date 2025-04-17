@@ -1,14 +1,13 @@
 import './App.css';
 import { Box, HStack, Link, Stack, Strong } from '@chakra-ui/react';
-import Header from './components/custom/header';
+import Header from '../custom/header';
 import {
   HoverCardArrow,
   HoverCardContent,
   HoverCardRoot,
   HoverCardTrigger
-} from './components/ui/hover-card';
+} from '../ui/hover-card';
 import { useState } from 'react';
-import FlyingIcons from './components/custom/icons';
 
 const content = ['content 1', 'content 2', 'content 3'];
 
@@ -66,7 +65,7 @@ function App() {
       </Box>
 
       <Box h={{ base: 200, md: 350 }}>
-        <HoverCardRoot size="sm" open={open} onOpenChange={(e) => setOpen(e.open)}>
+        <HoverCardRoot size="sm" open={open} onOpenChange={(e: { open: boolean }) => setOpen(e.open)}>
           <HoverCardTrigger asChild>
             <Link href="#">@chakra_ui</Link>
           </HoverCardTrigger>
@@ -81,7 +80,6 @@ function App() {
       </Box>
 
       <Box w={'100vw'} h={'200px'} bg={'gray.200'} position={'relative'}>
-        {/* <FlyingIcons /> */}
         <Box
           position="absolute"
           top="50%"

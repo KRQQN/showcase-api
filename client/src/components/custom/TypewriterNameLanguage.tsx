@@ -21,7 +21,7 @@ const TrNameLanguage = () => {
           width={{  lgDown: '25rem' }}
           textWrap={'nowrap'}
           alignSelf={{base:'end', mdDown:'center'}}
-          transform={'translateY(-2rem)'}
+          transform={{base: 'translateY(-10rem)', mdDown:'translateY(-2rem)'}}
 
 
 

@@ -1,7 +1,7 @@
 import FrenchBulldog from '@/components/custom/frenchie';
 import CardScrollList from '@/components/custom/cardScrollList';
 import TrNameLanguage from '@/components/custom/TypewriterNameLanguage';
-import { Box, Flex, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Stack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import './home.scss';
 import Terminal from '@/components/custom/terminal';
@@ -12,11 +12,12 @@ import GradientText from '@/components/custom/gradientText';
 const Home = () => {
   return (
     <BackgroundLayout>
-    <Box className="">
+    <Box h={'full'}>
       <Flex
         minW={'25rem'}
-        h={'40rem'}
-        my={{base:'15rem', mdDown:'10rem'}}
+        minH={{base:'60rem', mdDown:'20rem'}}
+        maxH={{base:'80rem', mdDown:'20rem'}}
+        my={{base:'2rem', mdDown:'10rem'}}
         
 
         alignItems={'center'}

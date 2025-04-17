@@ -43,6 +43,33 @@ wordleRouter
       : res.status(404).json({ message: 'Not found' });
   })
 
+  .post('/start-game', async (req: Request, res: Response): Promise<void> => {
+    try {
+      const requestedWordLength = req.body.wordLength || 5;
+      const filteredWords = wordlist.filter((word) => word.length === requestedWordLength);
+      
+      if (filteredWords.length === 0) {
+        res.status(400).json({ message: 'No words available for the requested length' });
+        return;
+      }
+      
+      const word = filteredWords[Math.floor(Math.random() * filteredWords.length)];
+
+      const gameSession = {
+        id: randomUUID(),
+        guessCount: 0,
+        word: word.toUpperCase(),
+        timestamp: new Date().getTime()
+      };
+      
+      gameSessions.push(gameSession);
+      res.json({ id: gameSession.id });
+    } catch (error) {
+      console.error('Error starting game:', error);
+      res.status(500).json({ message: 'Failed to start game' });
+    }
+  })
+
   .post('/guess/:id', async (req: Request, res: Response) => {
     const gameSession = gameSessions.find(
       (gameSession) => gameSession.id === req.params.id
@@ -67,21 +94,6 @@ wordleRouter
     }
 
     res.status(200).json(responsBody);
-  })
-
-  .post('/start-game', async (req: Request, res: Response) => {
-    const sixLetterWords = wordlist.filter((word) => word.length === 6);
-    const word = sixLetterWords[Math.floor(Math.random() * sixLetterWords.length)];
-
-    const gameSession = {
-      id: randomUUID(),
-      guessCount: 0,
-      word: word.toUpperCase(),
-      timestamp: new Date().getTime()
-    };
-    console.log();
-    gameSessions.push(gameSession);
-    res.json({ id: gameSession.id });
   });
 
 const validateGuess = (word: string, guess: string) => {

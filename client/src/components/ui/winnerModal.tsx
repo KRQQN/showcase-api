@@ -1,15 +1,18 @@
 import styled from 'styled-components';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { StatusColors } from '@/types/wordleTypes';
+import LetterFeedbackBox from '../wordle/LetterFeedbackBox';
 
 interface WinnerModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
   time?: { minutes: number; seconds: number };
+  correctWord: string;
 }
 
-const WinnerModal = ({ isOpen, onClose, time, children }: WinnerModalProps) => {
+const WinnerModal = ({ isOpen, onClose, time, correctWord }: WinnerModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -25,7 +28,11 @@ const WinnerModal = ({ isOpen, onClose, time, children }: WinnerModalProps) => {
           </p>
         </div>
         <Box w={'100%'} className="input-fields">
-          {children}
+          <Flex justify={'center'}>
+            {correctWord.split('').map((letter, index) => (
+              <LetterFeedbackBox key={index} letter={letter} status={StatusColors.correct} />
+            ))}
+          </Flex>
         </Box>
         <div className="action-btns">
           <a href="#" className="verify">
