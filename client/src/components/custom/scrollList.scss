@@ -1,166 +1,137 @@
-// src/styles/carousel.scss
 .container {
-    display: flex;
-    scrollbar-width: none;
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin: 0 auto;
-    scroll-snap-type: x mandatory;
-    padding: 0;
-    gap: 10px;
-    scroll-padding: 10px;
-    scroll-behavior: smooth;
-    width: 100%;
-    height: 254px;
-    position: relative;
-  
-    -webkit-mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 10%,
-      rgba(0, 0, 0, 1) 90%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 10%,
-      rgba(0, 0, 0, 1) 90%,
-      rgba(0, 0, 0, 0) 100%
-    );
-  
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  
-/*     &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 50px;
-      height: 100%;
-      background: linear-gradient(to right, rgb(21, 7, 218), rgba(16, 16, 16, 0));
-      z-index: 1;
-    }
-  
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50px;
-      height: 100%;
-      background: linear-gradient(to left, rgb(21, 7, 218), rgba(16, 16, 16, 0));
-      z-index: 1;
-    } */
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 10px;
+  scroll-behavior: smooth;
+  width: 50rem;
+  height: 45rem;
+  position: relative;
+  gap: 10px;
+  padding: 25px;
+  margin-left: auto;
+  margin-right: auto; 
+  /* Hide scrollbars */
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
-  
-  .item {
-    scroll-snap-align: center;
-    flex: 0 0 75%;
-    margin: 0 10px;
-    height: 220px;
-    display: flex;
-    flex-direction: column;
-    color: bisque;
-    font-size: 1.3rem;
-    line-height: 1.3em;
-    font-weight: 400;
-    font-family: sans-serif;
-    border-radius: 1rem;
-    cursor: grab;
-    position: relative;
-    overflow: hidden;
-  
-    // Frosted glass effect
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  
-    // Animated gradient border
-    &::before {
-      content: '';
-      position: absolute;
-      inset: -2px; // Border offset
-      padding: 3px; // Border thickness
-      background: linear-gradient(
-        120deg,
 
-        #00ffff,
-        #e60bc8, // Extended gradient for smoother movement
-        #00ffff,
-        );
-      background-size: 400% 100%; // Larger size for visible movement
-      border-radius: 1rem;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      animation: rotate 10s linear infinite;
-      z-index: -1; // Behind content
-    }
+  /* True transparent edge fading via masking */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+.item {
+  scroll-snap-align: center;
+  flex: 0 0 75%;
+  margin: 0 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: bisque;
+  font-size: 1.3rem;
+  line-height: 1.3em;
+  font-weight: 400;
+  font-family: sans-serif; /* Fixed typo */
+  border-radius: 1rem;
+  cursor: grab;
+  position: relative;
+  overflow: hidden;
   
-    &:active {
-      cursor: grabbing;
-    }
+  /* Frosted glass effect */
+  background: rgba(18, 18, 18, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   
-    .item-image {
-      height: 60%;
-      width: 100%;
-      overflow: hidden;
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
   
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.item-image {
+  height: 100%;
+  width: 100%;
+  opacity:0.7;
+  overflow: hidden;
+
+  img {
+    padding: 1.8rem;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    object-fit: cover; /* Fills parent while maintaining aspect ratio */
+    object-position: 30% 70%; /* Change this to move image */
+    display: block;
+  }
+}
+
+.item-title {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+.item-desc {
+  margin: 0.5rem 1rem 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.btn-dir {
+  position: absolute;
+  top: 45%;
+  border: none;
+  color: whitesmoke;
+  background: none;
+  transition: background 0.3s;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 0.5rem;
+  z-index: 404;
   
-    .item-title {
-      height: 40%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      text-align: center;
-    }
+  &:hover {
+    font-size: 2.5rem;
   }
   
-  .btn-dir {
-    position: absolute;
-    top: 45%;
-    border: none;
-    color: whitesmoke;
-    background: none;
-    transition: background 0.3s;
-    cursor: pointer;
-    font-size: 2rem;
-    padding: 0.5rem;
-    z-index: 404;
-  
-    &:hover {
-      font-size: 2.5rem;
-    }
-  
-    &.left {
-      left: 0;
-    }
-  
-    &.right {
-      right: 0;
-    }
+  &.left {
+    left: 0;
   }
   
-  @keyframes rotate {
-    0% {
-      background-position: 0% 0%;
-    }
-    100% {
-      background-position: 400% 0%;
-    }
+  &.right {
+    right: 0;
   }
+}
+
+@keyframes rotate {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 400% 0%;
+  }
+}

@@ -1,6 +1,6 @@
-import './scrollList.scss';
-import { Button, Flex, Link } from '@chakra-ui/react';
-import { useRef, useEffect } from 'react';
+import "./scrollList.scss";
+import { Button, Flex, Link } from "@chakra-ui/react";
+import { useRef, useEffect } from "react";
 
 const CardScrollList: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -36,18 +36,18 @@ const CardScrollList: React.FC = () => {
       container.scrollLeft += e.deltaY;
     };
 
-    container.addEventListener('mousedown', startDragging);
-    container.addEventListener('mousemove', onDrag);
-    container.addEventListener('mouseup', stopDragging);
-    container.addEventListener('mouseleave', stopDragging);
-    container.addEventListener('wheel', handleWheel);
+    container.addEventListener("mousedown", startDragging);
+    container.addEventListener("mousemove", onDrag);
+    container.addEventListener("mouseup", stopDragging);
+    container.addEventListener("mouseleave", stopDragging);
+    container.addEventListener("wheel", handleWheel);
 
     return () => {
-      container.removeEventListener('mousedown', startDragging);
-      container.removeEventListener('mousemove', onDrag);
-      container.removeEventListener('mouseup', stopDragging);
-      container.removeEventListener('mouseleave', stopDragging);
-      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener("mousedown", startDragging);
+      container.removeEventListener("mousemove", onDrag);
+      container.removeEventListener("mouseup", stopDragging);
+      container.removeEventListener("mouseleave", stopDragging);
+      container.removeEventListener("wheel", handleWheel);
     };
   }, []);
 
@@ -55,30 +55,30 @@ const CardScrollList: React.FC = () => {
     const container = containerRef.current;
     container && (container.scrollLeft -= container.offsetWidth * 1);
   };
-  
+
   const scrollRight = () => {
     const container = containerRef.current;
     container && (container.scrollLeft += container.offsetWidth * 1);
-    
   };
 
   return (
-    <Flex width={'100%'} position={'relative'} alignItems={'center'}>
-      <Button
-        className="btn-dir left"
-        onClick={scrollLeft}
-      >
-        {'<'}
+    <Flex className="container" position={"relative"} alignItems={"center"}>
+      <Button className="btn-dir left" onClick={scrollLeft}>
+        {"<"}
       </Button>
       <div className="container" ref={containerRef}>
-        <div className="item">
-          <div className="item-image">
-            <img src="/path-to-wordle-image.jpg" alt="Wordle" />
+        <Link className="item" href="/wordle" textDecoration="none">
+          <div>
+            <div className="item-image">
+              <img src="/wordle.png" alt="Wordle" />
+            </div>
+            <div className="item-title">WORDLE</div>
+            <div className="item-desc">
+              <p>Play a game of wordle with the word length of your choice!</p>
+              <p>Can you make it to the high-score leaderboard?</p>
+            </div>
           </div>
-          <div className="item-title">
-            <Link href="/wordle">WORDLE</Link>
-          </div>
-        </div>
+        </Link>
         <div className="item">
           <div className="item-image">
             <img src="/path-to-image.jpg" alt="Content" />
@@ -89,12 +89,8 @@ const CardScrollList: React.FC = () => {
         <div className="item">Content</div>
         <div className="item">Content</div>
       </div>
-      <Button
-        className="btn-dir right"
-        onClick={scrollRight}
-
-      >
-        {'>'}
+      <Button className="btn-dir right" onClick={scrollRight}>
+        {">"}
       </Button>
     </Flex>
   );
