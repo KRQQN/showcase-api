@@ -5,9 +5,9 @@ import WordleHighscore from './models/wordleHighscore';
 const {
   DB_HOST = 'localhost',
   DB_PORT = '5432',
-  DB_NAME = 'showcase',
+  DB_NAME = 'postgres',
   DB_USER = 'postgres',
-  DB_PASSWORD = 'postgres'
+  DB_PASSWORD = 'pw'
 } = process.env;
 
 const sequelize = new Sequelize({
