@@ -79,12 +79,13 @@ const CardScrollList: React.FC = () => {
             </div>
           </div>
         </Link>
-        <div className="item">
+        <Link className="item" href="/filtering" textDecoration="none">
           <div className="item-image">
-            <img src="/path-to-image.jpg" alt="Content" />
+            <img src="/boxes.png" alt="Content" />
           </div>
-          <div className="item-title">Content</div>
-        </div>
+          <div className="item-title">Filtering</div>
+          <p>Filter coloured shapes, yay!</p>
+        </Link>
         <div className="item">Content</div>
         <div className="item">Content</div>
         <div className="item">Content</div>
