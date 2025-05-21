@@ -63,7 +63,7 @@ const dummyIcons: IconItem[] = [
   { id: 50, shape: "square", color: "blue" },
 ];
 
-const getShapeIcon = (shape: string, size: string = "2rem"): JSX.Element => {
+const getShapeIcon = (shape: string, size: string = "3rem"): JSX.Element => {
   switch (shape) {
     case "triangle":
       return <BsTriangleFill size={size} />;
@@ -94,15 +94,14 @@ const Shapes: React.FC = () => {
   }, [filter]);
 
   return (
-    <Box marginTop={"10rem"}>
+    <Box marginTop={"10rem"} w={"20rem"} mx={"auto"}>
       <FilterOptions updateFilter={setFilter} />
       <Flex
         margin={"auto"}
-        width={"20rem"}
+        width={"full"}
         flexWrap={"wrap"}
         gap={"0.5rem"}
         justifyContent={"center"}
-        p={"1rem"}
       >
         {filteredShapes.map((s) => (
           <Box key={s.id} color={s.color}>
@@ -119,10 +118,11 @@ interface FilterOptionsProps {
 }
 
 const FilterOptions: React.FC<FilterOptionsProps> = ({ updateFilter }) => {
+  const colors = ["red", "green", "blue"];
+  const shapes = ["square", "circle", "triangle"];
+
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<any>) => {
-      console.log("event name ", e.target.name);
-      console.log("event checked ", e.target.checked);
       updateFilter((prev) => ({
         ...prev,
         [e.target.name]: {
@@ -133,32 +133,43 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({ updateFilter }) => {
     },
     [updateFilter],
   );
-
   return (
-    <Box>
-      <label htmlFor="red">Red</label>
-      <Checkbox
-        id="red"
-        name="colors"
-        value="red"
-        bg={"white"}
-        onChange={handleChange}
-      />
-      <label htmlFor="green">green</label>
-      <Checkbox
-        name="colors"
-        value="green"
-        bg={"white"}
-        onChange={handleChange}
-      />
-      <label htmlFor="blue">blue</label>
-      <Checkbox
-        name="colors"
-        value="blue"
-        bg={"white"}
-        onChange={handleChange}
-      />
-    </Box>
+    <Flex gap="1rem" p="1rem" justifyContent="space-evenly">
+      <Flex flexDir={"column"} gap={"1rem"} justifyContent={"space-evenly"}>
+        {colors.map((c) => (
+          <Flex gap="1rem" alignItems="center">
+            <Checkbox
+              id={c}
+              value={c}
+              bg="white"
+              name="colors"
+              defaultChecked={true}
+              onChange={handleChange}
+            />
+            <Box as="label" display="flex" alignItems="center" minWidth="60px">
+              {c}
+            </Box>
+          </Flex>
+        ))}
+      </Flex>
+      <Flex flexDir={"column"} gap={"1rem"} justifyContent={"space-evenly"}>
+        {shapes.map((s) => (
+          <Flex gap="1rem" alignItems="center">
+            <Checkbox
+              id={s}
+              value={s}
+              bg="white"
+              name="shapes"
+              defaultChecked={true}
+              onChange={handleChange}
+            />
+            <Box as="label" display="flex" alignItems="center" minWidth="60px">
+              {s}
+            </Box>
+          </Flex>
+        ))}
+      </Flex>
+    </Flex>
   );
 };
 
