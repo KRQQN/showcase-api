@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import { BsTriangleFill, BsSquareFill, BsCircleFill } from "react-icons/bs";
 import { Flex } from "@chakra-ui/react";
 import { Checkbox } from "@/components/ui/checkbox";
+import BackgroundLayout from "@/components/layout/bg";
 
 interface IconItem {
   id: number;
@@ -63,16 +64,16 @@ const dummyIcons: IconItem[] = [
   { id: 50, shape: "square", color: "blue" },
 ];
 
-const getShapeIcon = (shape: string, size: string = "3rem"): JSX.Element => {
-  switch (shape) {
+const getShapeIcon = (icon: IconItem, size: string = "3rem"): JSX.Element => {
+  switch (icon.shape) {
     case "triangle":
-      return <BsTriangleFill size={size} />;
+      return <BsTriangleFill color={icon.color} size={size} />;
     case "square":
-      return <BsSquareFill size={size} />;
+      return <BsSquareFill color={icon.color} size={size} />;
     case "circle":
-      return <BsCircleFill size={size} />;
+      return <BsCircleFill color={icon.color} size={size} />;
     default:
-      throw new Error(`Unknown shape: ${shape}`);
+      throw new Error(`Unknown shape: ${icon.id}`);
   }
 };
 
@@ -94,22 +95,21 @@ const Shapes: React.FC = () => {
   }, [filter]);
 
   return (
-    <Box marginTop={"10rem"} w={"20rem"} mx={"auto"}>
-      <FilterOptions updateFilter={setFilter} />
-      <Flex
-        margin={"auto"}
-        width={"full"}
-        flexWrap={"wrap"}
-        gap={"0.5rem"}
-        justifyContent={"center"}
-      >
-        {filteredShapes.map((s) => (
-          <Box key={s.id} color={s.color}>
-            {getShapeIcon(s.shape)}
-          </Box>
-        ))}
-      </Flex>
-    </Box>
+    <BackgroundLayout>
+      <Box marginTop={"10rem"} w={"25rem"} mx={"auto"}>
+        <FilterOptions updateFilter={setFilter} />
+        <Flex
+          flexWrap={"wrap"}
+          gap={"1rem"}
+          bg={"blackAlpha.500"}
+          p={"1rem"}
+          borderRadius={"2rem"}
+          justifyContent={"flex-start"}
+        >
+          {filteredShapes.map((s) => getShapeIcon(s))}
+        </Flex>
+      </Box>
+    </BackgroundLayout>
   );
 };
 
