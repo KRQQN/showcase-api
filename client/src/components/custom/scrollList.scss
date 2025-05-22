@@ -1,15 +1,15 @@
-.container {
+
+#slider-ctr {
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-padding: 10px;
   scroll-behavior: smooth;
-  width: 50rem;
-  height: 45rem;
+  height: 30rem;
   position: relative;
   gap: 10px;
-  padding: 25px;
+  padding: 0 20px 0 20px;
   margin-left: auto;
   margin-right: auto; 
   /* Hide scrollbars */
@@ -56,6 +56,7 @@
   cursor: grab;
   position: relative;
   overflow: hidden;
+  align-items:center;
   
   /* Frosted glass effect */
   background: rgba(18, 18, 18, 0.5);
@@ -64,66 +65,92 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   
-  
+  &:nth-child(1) {
+    margin-left:3rem;
+  }
+  &:last-child {
+    margin-right:3rem;
+  }
   &:active {
     cursor: grabbing;
   }
 }
 
+
+#slider-btn-r, #slider-btn-l {
+  display:none;
+}
 .item-image {
-  height: 30rem;
-  width: 100%;
   opacity:0.8;
-  overflow: hidden;
+  padding: 0.5rem;
 
   img {
-    padding: 1.8rem;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Fills parent while maintaining aspect ratio */
-    object-position: 30% 70%; /* Change this to move image */
-    display: block;
-    border-radius: 2.5rem;
+    width: full;
+    object-fit: cover;
+    object-position: 30% 70%;
+    border-radius: 1rem;
+    border: 1px solid rgba(118, 118, 118, 0.5);
   }
 }
 
 .item-title {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   display: flex;
   justify-content: center;
-  text-align: center;
   font-weight: bold;
 }
 
 .item-desc {
-  margin: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   font-size: 1rem;
+  text-align:left;
 }
 
-.btn-dir {
-  position: absolute;
-  top: 45%;
-  border: none;
-  color: whitesmoke;
-  background: none;
-  transition: background 0.3s;
-  cursor: pointer;
-  font-size: 2rem;
-  padding: 0.5rem;
-  z-index: 404;
-  
-  &:hover {
-    font-size: 2.5rem;
+
+
+@media (min-width: 768px) {
+
+
+  .item-title {
+    margin-top: 1rem;
   }
-  
-  &.left {
-    left: 0;
+
+  .item-image {
+    img {
+    }
   }
-  
-  &.right {
-    right: 0;
+
+}
+
+@media (min-width: 1199px) {
+  #slider-btn-r, #slider-btn-l {
+    display:block;
   }
+  #slider-ctr {
+    max-height:25rem;
+    max-width: full;
+    padding: 2rem;
+   
+    .item-image {
+      border-radius: 1rem;
+      height: 11rem;
+      width: 100%;
+      overflow:hidden;
+      
+      img {
+        width:100%;
+        object-fit: fill;
+        object-position: 30% 70%;
+      }
+
+    }
+  .item-desc {
+      text-align: center;
+      padding: 1rem 3rem 1rem 3rem
+    }
+
+  }
+
 }
 
 @keyframes rotate {

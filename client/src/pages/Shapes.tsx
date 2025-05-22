@@ -152,7 +152,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
   const shapes = ["square", "circle", "triangle"];
 
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.ChangeEvent<any>) => {
       const { name, value, checked } = e.target;
       updateFilter({
         ...filter,

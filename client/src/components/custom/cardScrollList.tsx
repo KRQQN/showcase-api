@@ -1,9 +1,24 @@
 import "./scrollList.scss";
-import { Button, Flex, Link } from "@chakra-ui/react";
-import { useRef, useEffect } from "react";
+import { Flex, Link } from "@chakra-ui/react";
+import { useRef, useEffect, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const CardScrollList: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [leftArrowOpacity, setLeftArrowOpacity] = useState(0); // Start transparent
+  const [rightArrowOpacity, setRightArrowOpacity] = useState(0.5); // Start visible
+
+  const updateArrowVisibility = () => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const isAtStart = container.scrollLeft === 0;
+    const isAtEnd =
+      container.scrollLeft + container.offsetWidth >= container.scrollWidth - 1; // Small buffer for precision
+
+    setLeftArrowOpacity(isAtStart ? 0 : 0.5);
+    setRightArrowOpacity(isAtEnd ? 0 : 0.5);
+  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -36,11 +51,19 @@ const CardScrollList: React.FC = () => {
       container.scrollLeft += e.deltaY;
     };
 
+    const handleScroll = () => {
+      updateArrowVisibility();
+    };
+
     container.addEventListener("mousedown", startDragging);
     container.addEventListener("mousemove", onDrag);
     container.addEventListener("mouseup", stopDragging);
     container.addEventListener("mouseleave", stopDragging);
     container.addEventListener("wheel", handleWheel);
+    container.addEventListener("scroll", handleScroll);
+
+    // Initial check for arrow visibility
+    updateArrowVisibility();
 
     return () => {
       container.removeEventListener("mousedown", startDragging);
@@ -48,25 +71,44 @@ const CardScrollList: React.FC = () => {
       container.removeEventListener("mouseup", stopDragging);
       container.removeEventListener("mouseleave", stopDragging);
       container.removeEventListener("wheel", handleWheel);
+      container.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const scrollLeft = () => {
     const container = containerRef.current;
-    container && (container.scrollLeft -= container.offsetWidth * 1);
+    if (container) {
+      container.scrollLeft -= container.offsetWidth * 1;
+      updateArrowVisibility();
+    }
   };
 
   const scrollRight = () => {
     const container = containerRef.current;
-    container && (container.scrollLeft += container.offsetWidth * 1);
+    if (container) {
+      container.scrollLeft += container.offsetWidth * 1;
+      updateArrowVisibility();
+    }
   };
 
   return (
-    <Flex className="container" position={"relative"} alignItems={"center"}>
-      <Button className="btn-dir left" onClick={scrollLeft}>
-        {"<"}
-      </Button>
-      <div className="container" ref={containerRef}>
+    <Flex
+      className="container"
+      maxW={{ base: "30rem", md: "40rem", lg: "60rem" }}
+      maxH={"30rem"}
+      m={"auto"}
+      position={"relative"}
+      alignItems={"center"}
+    >
+      <FaChevronLeft
+        id="slider-btn-l"
+        size={"6rem"}
+        opacity={leftArrowOpacity}
+        color={"whiteSmoke"}
+        onClick={scrollLeft}
+        style={{ transition: "opacity 0.3s ease-in-out" }}
+      />
+      <div id="slider-ctr" className="container" ref={containerRef}>
         <Link className="item" href="/wordle" textDecoration="none">
           <div>
             <div className="item-image">
@@ -84,15 +126,22 @@ const CardScrollList: React.FC = () => {
             <img src="/boxes.png" alt="Content" />
           </div>
           <div className="item-title">Filtering</div>
-          <p>Filter coloured shapes, yay!</p>
+          <div className="item-desc">
+            <p>Filter coloured shapes, yay!</p>
+          </div>
         </Link>
         <div className="item">Content</div>
         <div className="item">Content</div>
         <div className="item">Content</div>
       </div>
-      <Button className="btn-dir right" onClick={scrollRight}>
-        {">"}
-      </Button>
+      <FaChevronRight
+        id="slider-btn-r"
+        size={"6rem"}
+        opacity={rightArrowOpacity}
+        color={"whiteSmoke"}
+        onClick={scrollRight}
+        style={{ transition: "opacity 0.3s ease-in-out" }}
+      />
     </Flex>
   );
 };
