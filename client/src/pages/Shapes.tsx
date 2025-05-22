@@ -1,9 +1,9 @@
-import { Box } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import React, { useMemo, useState, useCallback } from "react";
 import { BsTriangleFill, BsSquareFill, BsCircleFill } from "react-icons/bs";
-import { Flex } from "@chakra-ui/react";
 import { Checkbox } from "@/components/ui/checkbox";
 import BackgroundLayout from "@/components/layout/bg";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface IconItem {
   id: number;
@@ -82,6 +82,12 @@ type TShapeFilterOptions = {
   shapes: { [key: string]: boolean };
 };
 
+const iconVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 20 },
+  visible: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.8, y: -20, transition: { duration: 0.3 } },
+};
+
 const Shapes: React.FC = () => {
   const [filter, setFilter] = useState<TShapeFilterOptions>({
     colors: { red: true, blue: true, green: true },
@@ -94,19 +100,39 @@ const Shapes: React.FC = () => {
     );
   }, [filter]);
 
+  // Pass setFilter directly to avoid debouncing issues
+  const updateFilter = useCallback((newFilter: TShapeFilterOptions) => {
+    setFilter(newFilter);
+  }, []);
+
   return (
     <BackgroundLayout>
       <Box marginTop={"10rem"} w={"25rem"} mx={"auto"}>
-        <FilterOptions updateFilter={setFilter} />
+        <FilterOptions filter={filter} updateFilter={updateFilter} />
+
         <Flex
-          flexWrap={"wrap"}
-          gap={"1rem"}
-          bg={"blackAlpha.500"}
           p={"1rem"}
+          gap={"1rem"}
+          flexWrap={"wrap"}
+          bg={"blackAlpha.500"}
           borderRadius={"2rem"}
+          transition="height 0.5s ease" // Smooth height transition
           justifyContent={"flex-start"}
         >
-          {filteredShapes.map((s) => getShapeIcon(s))}
+          <AnimatePresence>
+            {filteredShapes.map((s) => (
+              <motion.div
+                key={s.id}
+                variants={iconVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.3, delay: s.id * 0.02 }}
+              >
+                {getShapeIcon(s)}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </Flex>
       </Box>
     </BackgroundLayout>
@@ -114,36 +140,42 @@ const Shapes: React.FC = () => {
 };
 
 interface FilterOptionsProps {
-  updateFilter: React.Dispatch<React.SetStateAction<TShapeFilterOptions>>;
+  filter: TShapeFilterOptions;
+  updateFilter: (filter: TShapeFilterOptions) => void;
 }
 
-const FilterOptions: React.FC<FilterOptionsProps> = ({ updateFilter }) => {
+const FilterOptions: React.FC<FilterOptionsProps> = ({
+  filter,
+  updateFilter,
+}) => {
   const colors = ["red", "green", "blue"];
   const shapes = ["square", "circle", "triangle"];
 
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<any>) => {
-      updateFilter((prev) => ({
-        ...prev,
-        [e.target.name]: {
-          ...prev[e.target.name as keyof TShapeFilterOptions],
-          [e.target.value]: e.target.checked,
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value, checked } = e.target;
+      updateFilter({
+        ...filter,
+        [name]: {
+          ...filter[name as keyof TShapeFilterOptions],
+          [value]: checked,
         },
-      }));
+      });
     },
-    [updateFilter],
+    [filter, updateFilter],
   );
+
   return (
     <Flex gap="1rem" p="1rem" justifyContent="space-evenly">
       <Flex flexDir={"column"} gap={"1rem"} justifyContent={"space-evenly"}>
         {colors.map((c) => (
-          <Flex gap="1rem" alignItems="center">
+          <Flex gap="1rem" alignItems="center" key={c}>
             <Checkbox
               id={c}
               value={c}
               bg="white"
               name="colors"
-              defaultChecked={true}
+              checked={filter.colors[c]} // Use checked instead of defaultChecked
               onChange={handleChange}
             />
             <Box as="label" display="flex" alignItems="center" minWidth="60px">
@@ -154,13 +186,13 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({ updateFilter }) => {
       </Flex>
       <Flex flexDir={"column"} gap={"1rem"} justifyContent={"space-evenly"}>
         {shapes.map((s) => (
-          <Flex gap="1rem" alignItems="center">
+          <Flex gap="1rem" alignItems="center" key={s}>
             <Checkbox
               id={s}
               value={s}
               bg="white"
               name="shapes"
-              defaultChecked={true}
+              checked={filter.shapes[s]} // Use checked instead of defaultChecked
               onChange={handleChange}
             />
             <Box as="label" display="flex" alignItems="center" minWidth="60px">
