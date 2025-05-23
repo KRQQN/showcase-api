@@ -8,8 +8,7 @@
   scroll-behavior: smooth;
   height: 30rem;
   position: relative;
-  gap: 10px;
-  padding: 0 20px 0 20px;
+  gap: 5px;
   margin-left: auto;
   margin-right: auto; 
   /* Hide scrollbars */
@@ -80,6 +79,7 @@
 #slider-btn-r, #slider-btn-l {
   display:none;
 }
+
 .item-image {
   opacity:0.8;
   padding: 0.5rem;
@@ -107,25 +107,17 @@
 }
 
 
-
 @media (min-width: 768px) {
-
-
   .item-title {
     margin-top: 1rem;
   }
-
-  .item-image {
-    img {
-    }
-  }
-
 }
 
 @media (min-width: 1199px) {
   #slider-btn-r, #slider-btn-l {
     display:block;
   }
+
   #slider-ctr {
     max-height:25rem;
     max-width: full;
@@ -142,15 +134,13 @@
         object-fit: fill;
         object-position: 30% 70%;
       }
-
     }
+
   .item-desc {
       text-align: center;
       padding: 1rem 3rem 1rem 3rem
     }
-
   }
-
 }
 
 @keyframes rotate {

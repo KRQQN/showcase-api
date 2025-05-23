@@ -1,12 +1,14 @@
 import "./scrollList.scss";
-import { Flex, Link } from "@chakra-ui/react";
+import { Flex, Icon, Link } from "@chakra-ui/react";
 import { useRef, useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { MdTerminal } from "react-icons/md";
+import { Tooltip } from "../ui/tooltip";
 
-const CardScrollList: React.FC = () => {
+const CardScrollList = ({ toggleGUI }: { toggleGUI: () => void }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [leftArrowOpacity, setLeftArrowOpacity] = useState(0); // Start transparent
-  const [rightArrowOpacity, setRightArrowOpacity] = useState(0.5); // Start visible
+  const [leftArrowOpacity, setLeftArrowOpacity] = useState(0);
+  const [rightArrowOpacity, setRightArrowOpacity] = useState(0.5);
 
   const updateArrowVisibility = () => {
     const container = containerRef.current;
@@ -14,7 +16,7 @@ const CardScrollList: React.FC = () => {
 
     const isAtStart = container.scrollLeft === 0;
     const isAtEnd =
-      container.scrollLeft + container.offsetWidth >= container.scrollWidth - 1; // Small buffer for precision
+      container.scrollLeft + container.offsetWidth >= container.scrollWidth - 1;
 
     setLeftArrowOpacity(isAtStart ? 0 : 0.5);
     setRightArrowOpacity(isAtEnd ? 0 : 0.5);
@@ -100,13 +102,46 @@ const CardScrollList: React.FC = () => {
       position={"relative"}
       alignItems={"center"}
     >
+      <Tooltip
+        content="Show terminal"
+        openDelay={300}
+        contentProps={{
+          bg: "whiteSmoke",
+          color: "black",
+          width: "7rem",
+          textAlign: "left",
+          padding: "0.2rem 0.5rem",
+          position: "absolute",
+          top: "-2.5rem",
+          left: "1.5rem",
+          borderRadius: "0.5rem",
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+          fontSize: "sm",
+          fontWeight: "medium",
+        }}
+      >
+        <Icon
+          as={MdTerminal}
+          transition="transform 0.2s"
+          onClick={() => toggleGUI()}
+          h={"2.1rem"}
+          w={"2.1rem"}
+          style={{
+            position: "absolute",
+            top: "-0.5rem",
+            right: "2rem",
+            zIndex: 500,
+          }}
+          _hover={{ transform: "scale(1.2)", cursor: "pointer" }}
+        />
+      </Tooltip>
       <FaChevronLeft
         id="slider-btn-l"
-        size={"6rem"}
+        size={"4.5rem"}
         opacity={leftArrowOpacity}
         color={"whiteSmoke"}
         onClick={scrollLeft}
-        style={{ transition: "opacity 0.3s ease-in-out" }}
+        style={{ transition: "opacity 0.2s ease-in-out" }}
       />
       <div id="slider-ctr" className="container" ref={containerRef}>
         <Link className="item" href="/wordle" textDecoration="none">
@@ -136,11 +171,11 @@ const CardScrollList: React.FC = () => {
       </div>
       <FaChevronRight
         id="slider-btn-r"
-        size={"6rem"}
+        size={"4.5rem"}
         opacity={rightArrowOpacity}
         color={"whiteSmoke"}
         onClick={scrollRight}
-        style={{ transition: "opacity 0.3s ease-in-out" }}
+        style={{ transition: "opacity 0.2s ease-in-out" }}
       />
     </Flex>
   );

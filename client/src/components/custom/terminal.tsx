@@ -1,12 +1,15 @@
-import { useRef, useState } from 'react';
-import './terminal.scss';
-import { Flex } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import "./terminal.scss";
+import { useRef, useState } from "react";
+import { Tooltip } from "../ui/tooltip.tsx";
+import { HiQuestionMarkCircle } from "react-icons/hi";
+import { LuSquareMenu } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
+import { Flex, Icon } from "@chakra-ui/react";
 
-const Terminal = ({showTerminal}: {showTerminal: () => void}) => {
+const Terminal = ({ toggleGUI }: { toggleGUI: () => void }) => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useState<string>("");
   const [history, setHistory] = useState<string[]>([]);
   const [showMenu, setShowMenu] = useState<boolean>(true);
 
@@ -15,49 +18,110 @@ const Terminal = ({showTerminal}: {showTerminal: () => void}) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      if (input.trim() === 'clear') {
+    if (e.key === "Enter") {
+      const _input = input.trim();
+
+      if (_input === "clear") {
         setHistory([]);
-        setInput('');
+        setInput("");
         return;
       }
 
-      if (input.trim() === 'menu') {
+      if (_input === "1") {
+        navigate("/wordle");
+        setInput("");
+      }
+
+      if (_input === "2") {
+        navigate("/filtering");
+        setInput("");
+      }
+
+      if (_input === "app -t" || _input === "app --toggle-gui") {
+        toggleGUI();
+        setInput("");
+      }
+
+      if (_input === "app -m" || _input === "app --menu") {
         setShowMenu(!showMenu);
-        setInput('');
-        return;
+        setInput("");
       }
 
-      if (input.trim() === '1') {
-        navigate('/wordle');
-        setInput('');
-      }
-      if (input.trim() === '4') {
-        showTerminal();
-        setInput('');
+      if (_input === "app -h" || _input === "app --help") {
+        setHistory([
+          ...history,
+          "usage: app [-t | --toggle-gui] [-m | --menu] [-h | --help]",
+        ]);
+        setInput("");
+        return;
       }
 
       setHistory([...history, input]);
-      setInput('');
+      setInput("");
     }
   };
 
   const handleClick = () => {
     if (inputRef.current) {
       inputRef.current.focus();
-      inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      inputRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
   return (
     <div className="terminal" onClick={handleClick}>
       <div className="terminal_toolbar">
+        <Tooltip
+          content='Type "app -h" for help'
+          openDelay={200}
+          contentProps={{
+            bg: "white",
+            color: "black",
+            width: "10rem",
+            padding: "0.2rem 0.5rem",
+            position: "absolute",
+            top: "-2rem",
+            left: "1rem",
+            borderRadius: "0.5rem",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+            fontSize: "sm",
+            fontWeight: "medium",
+          }}
+        >
+          <HiQuestionMarkCircle size={"1.5rem"} />
+        </Tooltip>
         <p className="user">user@bash: ~</p>
-        <button className="add_tab">+</button>
+        <Tooltip
+          content="Toggle content slider"
+          openDelay={200}
+          contentProps={{
+            bg: "whiteSmoke",
+            color: "black",
+            width: "10rem",
+            padding: "0.2rem 0.5rem",
+            position: "absolute",
+            top: "-2.5rem",
+            left: "1.5rem",
+            borderRadius: "0.5rem",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+            fontSize: "sm",
+            fontWeight: "medium",
+          }}
+        >
+          <Icon
+            as={LuSquareMenu}
+            transition="transform 0.2s"
+            onClick={() => toggleGUI()}
+            h={"1.8rem"}
+            w={"1.8rem"}
+            color={"whiteSmoke"}
+            _hover={{ transform: "scale(1.2)", cursor: "pointer" }}
+          />
+        </Tooltip>
       </div>
 
       <div className="terminal_body">
-      {showMenu && <Menu/>}
+        {showMenu && <Menu />}
         {history.map((line, index) => (
           <Promt key={index} text={line} />
         ))}
@@ -93,13 +157,13 @@ const Promt = ({ text, active }: { text: string; active?: boolean }) => {
 
 const Menu = () => {
   const asciiRows = [
-    '        :::   :::   :::::::::: ::::    ::: :::    :::',
-    '      :+:+: :+:+:  :+:        :+:+:   :+: :+:    :+: ',
-    '    +:+ +:+:+ +:+ +:+        :+:+:+  +:+ +:+    +:+  ',
-    '   +#+  +:+  +#+ +#++:++#   +#+ +:+ +#+ +#+    +:+   ',
-    '  +#+       +#+ +#+        +#+  +#+#+# +#+    +#+    ',
-    ' #+#       #+# #+#        #+#   #+#+# #+#    #+#     ',
-    '###       ### ########## ###    ####  ########       '
+    "        :::   :::   :::::::::: ::::    ::: :::    :::",
+    "      :+:+: :+:+:  :+:        :+:+:   :+: :+:    :+: ",
+    "    +:+ +:+:+ +:+ +:+        :+:+:+  +:+ +:+    +:+  ",
+    "   +#+  +:+  +#+ +#++:++#   +#+ +:+ +#+ +#+    +:+   ",
+    "  +#+       +#+ +#+        +#+  +#+#+# +#+    +#+    ",
+    " #+#       #+# #+#        #+#   #+#+# #+#    #+#     ",
+    "###       ### ########## ###    ####  ########       ",
   ];
 
   return (
@@ -111,13 +175,13 @@ const Menu = () => {
           </div>
         ))}
       </div>
-      <Flex justifyContent={'space-evenly'} mb={5}>
+      <Flex justifyContent={"space-evenly"} mb={5}>
         <p>[1] wordle</p>
-        <p>[2] other </p>
-        <p>[3] other</p>
-        <p>[4] use GUI</p>
+        <p>[2] filters </p>
+        <p>[3] ..coming</p>
+        <p>[4] ..coming</p>
       </Flex>
-      <div className='separator'></div>
+      <div className="separator"></div>
     </>
   );
 };
