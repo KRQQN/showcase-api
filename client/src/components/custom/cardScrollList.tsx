@@ -123,16 +123,21 @@ const CardScrollList = ({ toggleGUI }: { toggleGUI: () => void }) => {
         <Icon
           as={MdTerminal}
           transition="transform 0.2s"
+          color={"whiteAlpha.700"}
           onClick={() => toggleGUI()}
           h={"2.1rem"}
           w={"2.1rem"}
           style={{
             position: "absolute",
-            top: "-0.5rem",
+            top: "-2.4rem",
             right: "2rem",
             zIndex: 500,
           }}
-          _hover={{ transform: "scale(1.2)", cursor: "pointer" }}
+          _hover={{
+            transform: "scale(1.2)",
+            color: "whiteAlpha.900",
+            cursor: "pointer",
+          }}
         />
       </Tooltip>
       <FaChevronLeft
@@ -165,9 +170,9 @@ const CardScrollList = ({ toggleGUI }: { toggleGUI: () => void }) => {
             <p>Filter coloured shapes, yay!</p>
           </div>
         </Link>
-        <div className="item">Content</div>
-        <div className="item">Content</div>
-        <div className="item">Content</div>
+        <div className="item">...work in progress</div>
+        <div className="item">...work in progress</div>
+        <div className="item">...work in progress</div>
       </div>
       <FaChevronRight
         id="slider-btn-r"

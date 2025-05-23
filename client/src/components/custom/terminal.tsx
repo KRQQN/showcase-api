@@ -88,7 +88,7 @@ const Terminal = ({ toggleGUI }: { toggleGUI: () => void }) => {
             fontWeight: "medium",
           }}
         >
-          <HiQuestionMarkCircle size={"1.5rem"} />
+          <HiQuestionMarkCircle color={"white"} opacity={0.8} size={"1.5rem"} />
         </Tooltip>
         <p className="user">user@bash: ~</p>
         <Tooltip
@@ -111,11 +111,15 @@ const Terminal = ({ toggleGUI }: { toggleGUI: () => void }) => {
           <Icon
             as={LuSquareMenu}
             transition="transform 0.2s"
+            color={"whiteAlpha.700"}
             onClick={() => toggleGUI()}
-            h={"1.8rem"}
-            w={"1.8rem"}
-            color={"whiteSmoke"}
-            _hover={{ transform: "scale(1.2)", cursor: "pointer" }}
+            h={"1.7rem"}
+            w={"1.7rem"}
+            _hover={{
+              transform: "scale(1.2)",
+              color: "whiteAlpha.900",
+              cursor: "pointer",
+            }}
           />
         </Tooltip>
       </div>
