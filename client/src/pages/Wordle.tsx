@@ -15,9 +15,7 @@ const Wordle = () => {
     key: "Enter",
     action: gameState.submitGuess,
   });
-  useEffect(() => {
-    console.log("CI : ", currentInput);
-  }, [currentInput, gameState.gameStarted, gameState.win]);
+  useEffect(() => {}, [gameState.gameStarted, gameState.win]);
 
   return (
     <BackgroundLayout>
