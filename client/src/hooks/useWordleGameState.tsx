@@ -7,7 +7,7 @@ export const useWordleGameState = () => {
   const [gameState, setGameState] = useState<GameState>({
     gameId: "",
     wordLength: 6,
-    guesses: Array(6).fill({ letter: "", status: "" }),
+    guesses: Array(6).fill(""),
     feedback: [],
     guessCount: 0,
     win: false,
@@ -15,13 +15,9 @@ export const useWordleGameState = () => {
     gameStarted: false,
   });
 
-  // Debug state changes
-  useEffect(() => {
-    console.log("useWordleGameState updated", gameState);
-    console.log("ID:", gameState.gameId);
-  }, [gameState]);
+  useEffect(() => {}, [gameState]);
 
-  const startGame = async () => {
+  const startGame = async (wordLength: number) => {
     try {
       const res = await fetch(`${API_BASE_URL}/wordle/start-game`, {
         method: "POST",
@@ -29,7 +25,7 @@ export const useWordleGameState = () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ wordLength: 6 }),
+        body: JSON.stringify({ wordLength }),
       });
 
       if (!res.ok) {
@@ -40,8 +36,8 @@ export const useWordleGameState = () => {
 
       setGameState({
         gameId: newGame.id,
-        wordLength: 6,
-        guesses: Array(6).fill(""),
+        wordLength,
+        guesses: Array(wordLength).fill(""),
         feedback: [],
         guessCount: 0,
         win: false,
@@ -54,8 +50,7 @@ export const useWordleGameState = () => {
   };
 
   const submitGuess = async (guess: string) => {
-    //if (guess.length !== gameState.wordLength || !gameState.gameStarted) return;
-    console.log("GAMESTATE ID :", gameState.gameId);
+    if (guess.length !== gameState.wordLength || !gameState.gameStarted) return;
     try {
       const res = await fetch(
         `${API_BASE_URL}/wordle/guess/${gameState.gameId}`,
@@ -90,10 +85,22 @@ export const useWordleGameState = () => {
     setGameState({ ...gameState, win: false });
   };
 
+  const setWordLength = (wl: number) => {
+    setGameState({
+      ...gameState,
+      wordLength: wl,
+      guesses: Array(6).fill({ letter: "", status: "" }),
+      feedback: [],
+      guessCount: 0,
+      gameStarted: false,
+    });
+  };
+
   return {
     ...gameState,
     startGame,
     submitGuess,
     resetWin,
+    setWordLength,
   };
 };

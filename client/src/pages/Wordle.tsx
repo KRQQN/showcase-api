@@ -5,13 +5,11 @@ import VirtualKeyboard from "@/components/wordle/VirtualKeyboard";
 import WinnerModal from "@/components/ui/winnerModal";
 import { useEffect } from "react";
 import { useKeyboardInput } from "@/hooks/useKeyboardInput";
-import { useWordLength } from "@/hooks/useWordLength";
 import { useWordleGameState } from "@/hooks/useWordleGameState";
 
 const Wordle = () => {
-  const { wordLength, changeWordLength } = useWordLength(6);
   const gameState = useWordleGameState();
-  const { currentInput } = useKeyboardInput(6, {
+  const { currentInput } = useKeyboardInput(gameState.wordLength, {
     key: "Enter",
     action: gameState.submitGuess,
   });
@@ -20,11 +18,7 @@ const Wordle = () => {
   return (
     <BackgroundLayout>
       {!gameState.gameStarted ? (
-        <GameOptions
-          wordLength={wordLength}
-          changeWordLength={changeWordLength}
-          startGame={gameState.startGame}
-        />
+        <GameOptions gameState={gameState} />
       ) : (
         <>
           <GameBoard gameState={gameState} currentInput={currentInput} />

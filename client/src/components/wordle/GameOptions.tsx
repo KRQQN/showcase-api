@@ -1,13 +1,8 @@
-import { Box, Flex, HStack, Button, Text } from '@chakra-ui/react';
-import { FaMinus, FaPlus } from 'react-icons/fa';
+import { WordleGameStateOptions } from "@/types/wordleTypes";
+import { Box, Flex, HStack, Button, Text } from "@chakra-ui/react";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
-interface GameOptionsProps {
-  wordLength: number;
-  changeWordLength: (increment: boolean) => void;
-  startGame: () => Promise<void>;
-}
-
-const GameOptions = ({ wordLength, changeWordLength, startGame }: GameOptionsProps) => {
+const GameOptions = ({ gameState }: { gameState: WordleGameStateOptions }) => {
   return (
     <Box w="100%" maxW="800px" mx="auto" p={4}>
       <Flex direction="column" align="center" gap={8}>
@@ -19,23 +14,27 @@ const GameOptions = ({ wordLength, changeWordLength, startGame }: GameOptionsPro
           <HStack>
             <Button
               aria-label="Decrease word length"
-              onClick={() => changeWordLength(false)}
-              disabled={wordLength <= 3}
+              onClick={() => gameState.setWordLength(gameState.wordLength - 1)}
+              disabled={gameState.wordLength <= 3}
             >
               <FaMinus />
             </Button>
             <Text fontSize="2xl" fontWeight="bold">
-              {wordLength}
+              {gameState.wordLength}
             </Text>
             <Button
               aria-label="Increase word length"
-              onClick={() => changeWordLength(true)}
-              disabled={wordLength >= 10}
+              onClick={() => gameState.setWordLength(gameState.wordLength + 1)}
+              disabled={gameState.wordLength >= 10}
             >
               <FaPlus />
             </Button>
           </HStack>
-          <Button colorScheme="blue" size="lg" onClick={startGame}>
+          <Button
+            colorScheme="blue"
+            size="lg"
+            onClick={() => gameState.startGame(gameState.wordLength)}
+          >
             Start Game
           </Button>
         </Flex>

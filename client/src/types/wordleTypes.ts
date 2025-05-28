@@ -20,3 +20,10 @@ export type GameState = {
   time: { minutes: number; seconds: number };
   gameStarted: boolean;
 };
+
+export interface WordleGameStateOptions extends GameState {
+  startGame: (wl: number) => Promise<void>;
+  submitGuess: (guess: string) => Promise<void>;
+  resetWin: () => void;
+  setWordLength: (wl: number) => void;
+}
