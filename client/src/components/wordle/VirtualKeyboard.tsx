@@ -3,26 +3,33 @@ import "./VirtualKeyboard.scss";
 const defaultLayout = [
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-  ["z", "x", "c", "v", "b", "n", "m", "backspace"],
+  ["z", "x", "c", "v", "b", "n", "m", "Backspace"],
 ];
 
 interface KeyboardProps {
-  onKeyPress?: (key: string) => void;
+  //onKeyPress?: (key: string) => void;
   layout?: string[][];
   className?: string;
   keyClassName?: string;
 }
 
 const VirtualKeyboard = ({
-  onKeyPress = () => {},
   layout = defaultLayout,
   className = "",
   keyClassName = "",
 }: KeyboardProps) => {
   const handleKeyClick = (key: string) => {
-    let keyValue = key;
-    if (key === "backspace") keyValue = "Backspace";
-    onKeyPress(keyValue);
+    let keyCode = key.charCodeAt(0);
+
+    const event = new KeyboardEvent("keydown", {
+      key: key,
+      code: `Key${key.toUpperCase()}`,
+      keyCode: keyCode,
+      which: keyCode,
+      bubbles: true,
+      cancelable: true,
+    });
+    window.dispatchEvent(event);
   };
 
   return (
@@ -32,10 +39,10 @@ const VirtualKeyboard = ({
           {row.map((key) => (
             <button
               key={key}
-              className={`key ${keyClassName} ${key === "backspace" ? "backspace" : ""}`}
+              className={`key ${keyClassName}}`}
               onClick={() => handleKeyClick(key)}
             >
-              {key === "backspace" ? "⌫" : key}
+              {key === "Backspace" ? "⌫" : key}
             </button>
           ))}
         </div>
