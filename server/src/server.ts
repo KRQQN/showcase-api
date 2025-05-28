@@ -31,7 +31,11 @@ const corsOptions = {
     const allowedOrigins =
       process.env.NODE_ENV === "production"
         ? ["http://frontend"]
-        : ["http://localhost", "http://localhost:80", "http://localhost:3001"];
+        : [
+            "http://localhost",
+            "http://192.168.1.16:3001",
+            "http://localhost:3001",
+          ];
 
     console.log("Allowed origins:", allowedOrigins);
 
