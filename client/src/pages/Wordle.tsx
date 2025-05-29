@@ -10,16 +10,17 @@ import { useWordleGameState } from "@/hooks/useWordleGameState";
 const Wordle = () => {
   const gameState = useWordleGameState();
   const { currentInput, setCurrentInput } = useKeyboardInput(
-    gameState.gameStarted,
+    gameState.gameActive,
     gameState.wordLength,
     {
       key: "Enter",
       action: gameState.submitGuess,
     },
   );
+
   useEffect(() => {
     setCurrentInput("");
-  }, [gameState.wordLength, gameState.gameStarted, gameState.win]);
+  }, [gameState.wordLength, gameState.gameActive, gameState.win]);
 
   return (
     <BackgroundLayout>

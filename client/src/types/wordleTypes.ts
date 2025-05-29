@@ -18,7 +18,7 @@ export type GameState = {
   guessCount: number;
   win: boolean;
   time: { minutes: number; seconds: number };
-  gameStarted: boolean;
+  gameActive: boolean;
 };
 
 export interface WordleGameStateOptions extends GameState {

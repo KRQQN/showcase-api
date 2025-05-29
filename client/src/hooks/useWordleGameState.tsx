@@ -12,7 +12,7 @@ export const useWordleGameState = () => {
     guessCount: 0,
     win: false,
     time: { minutes: 0, seconds: 0 },
-    gameStarted: false,
+    gameActive: false,
   });
 
   useEffect(() => {}, [gameState]);
@@ -42,7 +42,7 @@ export const useWordleGameState = () => {
         guessCount: 0,
         win: false,
         time: { minutes: 0, seconds: 0 },
-        gameStarted: true,
+        gameActive: true,
       });
     } catch (error) {
       console.error("Failed to start game:", error);
@@ -50,7 +50,7 @@ export const useWordleGameState = () => {
   };
 
   const submitGuess = async (guess: string) => {
-    if (guess.length !== gameState.wordLength || !gameState.gameStarted) return;
+    if (guess.length !== gameState.wordLength || !gameState.gameActive) return;
     try {
       const res = await fetch(
         `${API_BASE_URL}/wordle/guess/${gameState.gameId}`,
@@ -92,7 +92,7 @@ export const useWordleGameState = () => {
       guesses: Array(wordLength).fill(""),
       feedback: [],
       guessCount: 0,
-      gameStarted: false,
+      gameActive: false,
     });
   };
 

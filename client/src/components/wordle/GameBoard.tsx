@@ -14,7 +14,7 @@ const GameBoard = ({
 
   const allRows = useMemo(() => {
     const rows = [...guesses];
-    if (currentInput && guessCount < 6) {
+    if (currentInput && guessCount < wordLength) {
       rows[guessCount] = currentInput;
     }
     return rows;
@@ -42,7 +42,7 @@ const GameBoard = ({
 
         <Flex direction="column" align="center" gap={2} w="100%" maxW="400px">
           <Text fontSize="lg" fontWeight="bold">
-            Guesses remaining: {6 - guessCount}
+            Guesses remaining: {wordLength - guessCount}
           </Text>
           <Text marginBottom="1rem" fontSize="sm" color="gray.500">
             Type your guess and press Enter to submit
