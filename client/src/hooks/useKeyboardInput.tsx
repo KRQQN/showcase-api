@@ -6,13 +6,16 @@ interface KeyAction {
 }
 
 export const useKeyboardInput = (
-  wordLength: number,
+  active: boolean,
+  maxInputLength: number,
   mapKeyAction?: KeyAction,
 ) => {
   const [currentInput, setCurrentInput] = useState("");
+
   const handleKeyPress = useCallback(
     async (key: string) => {
-      if (key === "Enter" && currentInput.length === wordLength) {
+      if (!active) return;
+      if (key === "Enter" && currentInput.length === maxInputLength) {
         // TODO: Refactor this
         if (mapKeyAction?.action && mapKeyAction?.key === "Enter") {
           await mapKeyAction.action(currentInput);
@@ -26,14 +29,14 @@ export const useKeyboardInput = (
         return;
       }
 
-      if (currentInput.length >= wordLength) return;
+      if (currentInput.length >= maxInputLength) return;
 
       const upperKey = key.toUpperCase();
       if (upperKey.length === 1 && /^[A-Z]$/.test(upperKey)) {
         setCurrentInput(currentInput + upperKey);
       }
     },
-    [currentInput, wordLength, setCurrentInput, mapKeyAction],
+    [currentInput, maxInputLength, setCurrentInput, mapKeyAction],
   );
 
   useEffect(() => {
@@ -45,5 +48,5 @@ export const useKeyboardInput = (
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyPress, currentInput]);
 
-  return { currentInput, handleKeyPress };
+  return { currentInput, setCurrentInput };
 };

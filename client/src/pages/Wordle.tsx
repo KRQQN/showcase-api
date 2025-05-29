@@ -9,27 +9,28 @@ import { useWordleGameState } from "@/hooks/useWordleGameState";
 
 const Wordle = () => {
   const gameState = useWordleGameState();
-  const { currentInput } = useKeyboardInput(gameState.wordLength, {
-    key: "Enter",
-    action: gameState.submitGuess,
-  });
-  useEffect(() => {}, [gameState.gameStarted, gameState.win]);
+  const { currentInput, setCurrentInput } = useKeyboardInput(
+    gameState.gameStarted,
+    gameState.wordLength,
+    {
+      key: "Enter",
+      action: gameState.submitGuess,
+    },
+  );
+  useEffect(() => {
+    setCurrentInput("");
+  }, [gameState.wordLength, gameState.gameStarted, gameState.win]);
 
   return (
     <BackgroundLayout>
-      {!gameState.gameStarted ? (
-        <GameOptions gameState={gameState} />
-      ) : (
-        <>
-          <GameBoard gameState={gameState} currentInput={currentInput} />
-          <VirtualKeyboard />
-          <WinnerModal
-            isOpen={gameState.win}
-            correctWord={gameState.guesses[gameState.guessCount - 1]}
-            onClose={gameState.resetWin}
-          />
-        </>
-      )}
+      <GameOptions gameState={gameState} />
+      <GameBoard gameState={gameState} currentInput={currentInput} />
+      <VirtualKeyboard />
+      <WinnerModal
+        isOpen={gameState.win}
+        correctWord={gameState.guesses[gameState.guessCount - 1]}
+        onClose={gameState.resetWin}
+      />
     </BackgroundLayout>
   );
 };

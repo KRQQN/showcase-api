@@ -1,4 +1,4 @@
-import { Box, Flex, Text, HStack } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import WordleRow from "./WordleRow";
 import { useMemo } from "react";
 import { GameState } from "@/types/wordleTypes";
@@ -26,21 +26,15 @@ const GameBoard = ({
         <Text fontSize="4xl" fontWeight="bold">
           W O R D L E
         </Text>
-        <HStack mb={4}>
-          <Text>Word Length: {wordLength}</Text>
-        </HStack>
 
         <Box mb={4}>
-          {Array(6)
+          {Array(wordLength)
             .fill(0)
             .map((_, index) => (
               <WordleRow
                 key={index}
                 word={allRows[index] || ""}
-                feedback={
-                  feedback[index] ||
-                  Array(wordLength).fill({ letter: "", status: "" })
-                }
+                feedback={feedback[index] || ""}
                 wordLength={wordLength}
               />
             ))}

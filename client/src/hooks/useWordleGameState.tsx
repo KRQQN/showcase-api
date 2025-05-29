@@ -85,11 +85,11 @@ export const useWordleGameState = () => {
     setGameState({ ...gameState, win: false });
   };
 
-  const setWordLength = (wl: number) => {
+  const setWordLength = (wordLength: number) => {
     setGameState({
       ...gameState,
-      wordLength: wl,
-      guesses: Array(6).fill({ letter: "", status: "" }),
+      wordLength: wordLength,
+      guesses: Array(wordLength).fill(""),
       feedback: [],
       guessCount: 0,
       gameStarted: false,
