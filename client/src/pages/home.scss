@@ -14,7 +14,7 @@
 
 .background-container {
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   color: white;
@@ -26,7 +26,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom right, #0f172a, #1e1b4b, #0f172a);
+    background: linear-gradient(to bottom right, #0f172a, #1e1b4b, #0f112a);
     z-index: 0;
   }
 
@@ -36,23 +36,24 @@
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 0.3;
+    opacity: 0.5;
     z-index: 0;
   }
 
   .glow-blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(80px);
   }
 
   .glow-blue {
     top: 10%;
     left: 15%;
-    width: 40%;
+    width: 70%;
     height: 30%;
+    filter: blur(70px);
     background: #2563eb;
-    animation: pulse 6s ease-in-out infinite;
+    animation: pulse 4s ease-in-out infinite;
   }
 
   .glow-purple {
@@ -60,6 +61,7 @@
     right: 15%;
     width: 40%;
     height: 30%;
+    filter: blur(60px);
     background: #9333ea;
     animation: pulse 6s ease-in-out infinite 2s;
   }
