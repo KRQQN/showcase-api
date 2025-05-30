@@ -19,7 +19,7 @@ const corsOptions = {
     callback: (err: Error | null, allow?: boolean) => void,
   ) => {
     console.log("Received origin:", origin);
-    console.log("NODE_ENV:", process.env.NODE_ENV);
+    console.log(path.join(__dirname), "../../client/dist");
 
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) {
@@ -28,15 +28,15 @@ const corsOptions = {
       return;
     }
 
-    const allowedOrigins =
-      process.env.NODE_ENV === "production"
-        ? ["http://frontend"]
-        : [
-            "http://localhost",
-            "http://192.168.1.16:3001",
-            "http://localhost:3001",
-          ];
-
+    const allowedOrigins = [
+      "http://localhost",
+      "http://192.168.1.16:3001",
+      "http://localhost:3001",
+      "http://ec2-51-20-78-38.eu-north-1.compute.amazonaws.com",
+      "http://ec2-51-20-78-38.eu-north-1.compute.amazonaws.com:3000",
+      "http://ec2-51-20-78-38.eu-north-1.compute.amazonaws.com:3001",
+      "https://rkdev.me",
+    ];
     console.log("Allowed origins:", allowedOrigins);
 
     if (allowedOrigins.includes(origin)) {
