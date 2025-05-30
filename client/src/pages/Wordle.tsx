@@ -2,7 +2,7 @@ import BackgroundLayout from "@/components/layout/bg";
 import GameBoard from "@/components/wordle/GameBoard";
 import GameOptions from "@/components/wordle/GameOptions";
 import VirtualKeyboard from "@/components/wordle/VirtualKeyboard";
-import WinnerModal from "@/components/ui/winnerModal";
+import GameResultModal from "@/components/wordle/GameResultModal";
 import { useEffect } from "react";
 import { useKeyboardInput } from "@/hooks/useKeyboardInput";
 import { useWordleGameState } from "@/hooks/useWordleGameState";
@@ -27,11 +27,7 @@ const Wordle = () => {
       <GameOptions gameState={gameState} />
       <GameBoard gameState={gameState} currentInput={currentInput} />
       <VirtualKeyboard />
-      <WinnerModal
-        isOpen={gameState.win}
-        correctWord={gameState.guesses[gameState.guessCount - 1]}
-        onClose={gameState.resetWin}
-      />
+      {gameState.win !== null && <GameResultModal gameState={gameState} />}
     </BackgroundLayout>
   );
 };

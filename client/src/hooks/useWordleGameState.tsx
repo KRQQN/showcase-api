@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { GameState } from "../types/wordleTypes";
 
-const API_BASE_URL = "http://localhost:3000/api";
-
 export const useWordleGameState = () => {
   const [gameState, setGameState] = useState<GameState>({
     gameId: "",
@@ -10,16 +8,17 @@ export const useWordleGameState = () => {
     guesses: Array(6).fill(""),
     feedback: [],
     guessCount: 0,
-    win: false,
+    win: null,
     time: { minutes: 0, seconds: 0 },
     gameActive: false,
+    correctWord: "",
   });
 
   useEffect(() => {}, [gameState]);
 
   const startGame = async (wordLength: number) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/wordle/start-game`, {
+      const res = await fetch(`api/wordle/start-game`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,14 +34,16 @@ export const useWordleGameState = () => {
       const newGame = await res.json();
 
       setGameState({
+        ...gameState,
         gameId: newGame.id,
         wordLength,
         guesses: Array(wordLength).fill(""),
+        gameActive: true,
         feedback: [],
         guessCount: 0,
-        win: false,
+        win: null,
         time: { minutes: 0, seconds: 0 },
-        gameActive: true,
+        correctWord: "",
       });
     } catch (error) {
       console.error("Failed to start game:", error);
@@ -52,14 +53,11 @@ export const useWordleGameState = () => {
   const submitGuess = async (guess: string) => {
     if (guess.length !== gameState.wordLength || !gameState.gameActive) return;
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/wordle/guess/${gameState.gameId}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ guess }),
-        },
-      );
+      const res = await fetch(`api/wordle/guess/${gameState.gameId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ guess }),
+      });
       const result = await res.json();
 
       const newGuesses = [...gameState.guesses];
@@ -75,14 +73,32 @@ export const useWordleGameState = () => {
         guessCount: result.guessCount,
         win: result.win,
         time: result.win ? result.time : gameState.time,
+        correctWord: result.correctWord,
       });
     } catch (error) {
       console.error("Failed to submit guess:", error);
     }
   };
 
+  const resetGameBoard = () => {
+    setGameState({
+      gameId: "",
+      wordLength: gameState.wordLength,
+      guesses: Array(gameState.wordLength).fill(""),
+      feedback: [],
+      guessCount: 0,
+      win: null,
+      time: { minutes: 0, seconds: 0 },
+      gameActive: false,
+      correctWord: "",
+    });
+  };
+
   const resetWin = () => {
-    setGameState({ ...gameState, win: false });
+    setGameState({
+      ...gameState,
+      win: null,
+    });
   };
 
   const setWordLength = (wordLength: number) => {
@@ -100,7 +116,8 @@ export const useWordleGameState = () => {
     ...gameState,
     startGame,
     submitGuess,
-    resetWin,
+    resetGameBoard,
     setWordLength,
+    resetWin,
   };
 };

@@ -16,9 +16,10 @@ export type GameState = {
   guesses: string[];
   feedback: LetterFeedback[][];
   guessCount: number;
-  win: boolean;
+  win: boolean | null;
   time: { minutes: number; seconds: number };
   gameActive: boolean;
+  correctWord: string;
 };
 
 export interface WordleGameStateOptions extends GameState {
@@ -26,4 +27,5 @@ export interface WordleGameStateOptions extends GameState {
   submitGuess: (guess: string) => Promise<void>;
   resetWin: () => void;
   setWordLength: (wl: number) => void;
+  resetGameBoard: () => void;
 }

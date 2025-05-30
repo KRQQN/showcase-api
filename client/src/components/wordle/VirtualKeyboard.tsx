@@ -3,7 +3,7 @@ import "./VirtualKeyboard.scss";
 const defaultLayout = [
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-  ["z", "x", "c", "v", "b", "n", "m", "Backspace"],
+  ["Enter", "z", "x", "c", "v", "b", "n", "m", "Backspace"],
 ];
 
 interface KeyboardProps {
@@ -38,8 +38,9 @@ const VirtualKeyboard = ({
         <div key={rowIndex} className="keyboard-row">
           {row.map((key) => (
             <button
+              id={`${key === "Enter" ? "Enter" : ""}` + `${key === "Backspace"? "Backspace" : ""}`}
               key={key}
-              className={`key ${keyClassName}}`}
+              className={`key ${keyClassName}`}
               onClick={() => handleKeyClick(key)}
             >
               {key === "Backspace" ? "⌫" : key}

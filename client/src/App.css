@@ -1,15 +1,13 @@
 #root {
-  
   margin: 0 auto;
   text-align: center;
-  --ua-blue: #0066cc; 
-  --se-yellow: #FFD700; 
+  --ua-blue: #0066cc;
+  --se-yellow: #ffd700;
 }
 
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  color: #fff;
 }
 
 .App {
@@ -25,7 +23,6 @@ body {
   background: rgba(0, 0, 0, 0.8);
 }
 
-
 form {
   display: flex;
   flex-direction: column;
@@ -34,16 +31,15 @@ form {
   margin: auto;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 10px;
   border-radius: 5px;
   border: none;
 }
 
-
-
 .gradient-bg {
-  background: linear-gradient(0deg, #FFD700 3%, #0066cc 73%, #00000011 120%);
+  background: linear-gradient(0deg, #ffd700 3%, #0066cc 73%, #00000011 120%);
 }
 
 #tsparticles {
@@ -60,7 +56,6 @@ div#tsparticles > canvas {
   z-index: 0;
 }
 
-
 /* For screens smaller than 768px (e.g., mobile) */
 @media (max-width: 767px) {
   #tsparticles {
@@ -68,13 +63,9 @@ div#tsparticles > canvas {
     width: 22rem;
     overflow: visible;
     margin: auto;
-    display:flex;
+    display: flex;
     flex-direction: column;
     transform: translateX(0.5rem);
-    margin-bottom: 1rem;;
-
+    margin-bottom: 1rem;
   }
-
-
 }
-

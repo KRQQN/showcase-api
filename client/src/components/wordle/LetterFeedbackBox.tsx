@@ -1,8 +1,8 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text } from "@chakra-ui/react";
 
 const LetterFeedbackBox = ({
   letter,
-  status
+  status,
 }: {
   letter: string;
   status: string;
@@ -10,7 +10,7 @@ const LetterFeedbackBox = ({
   return (
     <Box
       bg={status}
-      alignContent={'center'}
+      alignContent={"center"}
       borderRadius={10}
       m={{ base: 2, mdDown: 1 }}
       h={{ base: 70, mdDown: 45 }}
@@ -18,10 +18,10 @@ const LetterFeedbackBox = ({
     >
       <Text
         textShadow="0px 0px 1px whiteSmoke"
-        color={'black'}
-        textAlign={'center'}
-        fontWeight={'bolder'}
-        fontSize={{ base: '4xl', mdDown: '2xl' }}
+        color={"whiteAlpha.800"}
+        textAlign={"center"}
+        fontWeight={"bolder"}
+        fontSize={{ base: "4xl", mdDown: "2xl" }}
       >
         {letter}
       </Text>
