@@ -88,7 +88,7 @@ const Terminal = ({ toggleGUI }: { toggleGUI: () => void }) => {
             fontWeight: "medium",
           }}
         >
-          <HiQuestionMarkCircle color={"white"} opacity={0.8} size={"1.5rem"} />
+          <HiQuestionMarkCircle color={"white"} opacity={0.5} size={"1.5rem"} />
         </Tooltip>
         <p className="user">user@bash: ~</p>
         <Tooltip

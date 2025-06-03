@@ -21,7 +21,7 @@ const GameBoard = ({
   }, [guesses, currentInput]);
 
   return (
-    <Box w="100%" maxW="800px" mx="auto" p={4}>
+    <Box w="100%" maxW="800px" mx="auto" p={4} mt={24}>
       <Flex direction="column" align="center" gap={4}>
         <Box mb={4}>
           {Array(wordLength)
